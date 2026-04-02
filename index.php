@@ -1,5 +1,10 @@
 <?php
-require_once "controllers/Controller.php";
+$url = $_GET['url'] ?? 'home';
 
-$controller = new Controller();
-$controller->index();
+switch($url){
+    case 'home':
+        require_once "controllers/HomeController.php";
+        $c = new Controller();
+        $c->index();
+        break;
+}
