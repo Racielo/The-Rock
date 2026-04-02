@@ -1,4 +1,4 @@
-<?php class Usuario {
+<?php class Usuarios {
     public function obtenerUsuarios(){
         return [
             ["nombre"=>"Juan"],

@@ -1,9 +1,9 @@
 <?php
-require_once "models/Usuario.php";
+require_once "models/Usuarios.php";
 
 class UsuarioController {
     public function index(){
-        $modelo = new Usuario();
+        $modelo = new Usuarios();
         $usuarios = $modelo->obtenerUsuarios();
 
         require_once "views/usuarios.php";
