@@ -1,4 +1,4 @@
-/* Fondo completo */
+/* ===== FONDO ===== */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -19,57 +19,74 @@ body::before {
     opacity: 0.2;
     z-index: -1;
 }
-/* Panel flotante */
-.panel {
-    position: absolute;
-    top: 20px;
-    left: 20px;
 
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-}
-
-.logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-}
-/* Fondo completo */
+/* ===== NAVBAR ===== */
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     padding: 15px 30px;
+
+    /* efecto glass 🔥 */
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
 }
 
+/* ===== LOGO ===== */
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 
-/* Buscador */
-.buscador {
+/* ===== BUSCADOR ===== */
+.buscador-2 {
     display: flex;
-    background: white;
-    border-radius: 30px;
+    align-items: center;
+
+    background: #d9d9d9;
+    border-radius: 40px;
     overflow: hidden;
+
     width: 400px;
 }
 
-.buscador input {
+/* BOTÓN TODOS */
+.btn-todos {
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* SEPARADOR */
+.separador {
+    width: 1px;
+    height: 25px;
+    background: black;
+}
+
+/* INPUT */
+.buscador-2 input {
     border: none;
     padding: 10px;
     flex: 1;
     outline: none;
 }
 
-.buscador button {
+/* BOTÓN BUSCAR */
+.btn-buscar {
     border: none;
     background: transparent;
     padding: 10px;
     cursor: pointer;
+    border-radius: 0; /* evita deformación */
 }
 
-/* Botones */
+/* ===== BOTONES ===== */
 .acciones {
     display: flex;
     gap: 10px;
@@ -82,7 +99,7 @@ button {
     cursor: pointer;
 }
 
-/* Estilos específicos */
+/* ESPECÍFICOS */
 .btn-login {
     background: white;
 }
@@ -90,4 +107,59 @@ button {
 .btn-crear {
     background: #d9a679;
     color: white;
+}
+
+/* ===== HERO ===== */
+.hero {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* TÍTULO */
+.titulo-principal {
+    color: white;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+/* ===== CATEGORÍAS ===== */
+.categorias {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* CADA CATEGORÍA */
+.categoria {
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+/* EFECTO HOVER 🔥 */
+.categoria:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+
+}
+
+/* ICONO */
+.icono {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+}
+.icono img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
