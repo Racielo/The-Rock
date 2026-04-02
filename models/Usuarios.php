@@ -1,5 +1,5 @@
-<?php class Usuarios {
-    public function obtenerUsuarios(){
+<?php class usuarios {
+    public function obtenerusuarios(){
         return [
             ["nombre"=>"Juan"],
             ["nombre"=>"Maria"]

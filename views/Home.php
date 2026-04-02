@@ -6,7 +6,7 @@
 <body>
     <h1>Usuarios</h1>
 
-<?php foreach($Usuarios as $U): ?>
+<?php foreach($usuarios as $u): ?>
     <p><?php echo $u['nombre']; ?></p>
 <?php endforeach; ?>
 </body>
