@@ -2,34 +2,31 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Pastelería The Rock</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #8B5A2B;
-            color: white;
-        }
-    </style>
+    <title>The Rock</title>
+
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
-<h1>Pastelería The Rock</h1>
+<div class="navbar">
 
-<h2>Productos</h2>
+    <!-- Logo -->
+    <div class="logo-container">
+        <img src="assets/img/logo.png" class="logo">
+    </div>
 
-<?php foreach($productos as $p): ?>
-    <p><?= $p['nombre'] ?></p>
-<?php endforeach; ?>
+    <!-- Buscador -->
+    <div class="buscador">
+        <input type="text" placeholder="Todos los productos">
+        <button>🔍</button>
+    </div>
 
-<div>
-    <p>Pasteles</p>
-    <p>Panadería</p>
-    <p>Eventos</p>
+    <!-- Botones -->
+    <div class="acciones">
+        <button class="btn-login">Iniciar sesión</button>
+        <button class="btn-crear">Crear cuenta</button>
+    </div>
+
 </div>
-
-<h2>Novedades</h2>
-
-<p>Aquí irá tu contenido visual 👀</p>
-
 </body>
 </html>

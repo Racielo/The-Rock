@@ -1,0 +1,93 @@
+/* Fondo completo */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #8B5A2B;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../img/fondo.png');
+    background-repeat: repeat;
+    background-size: 300px;
+
+    opacity: 0.2;
+    z-index: -1;
+}
+/* Panel flotante */
+.panel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+/* Fondo completo */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 30px;
+}
+
+
+/* Buscador */
+.buscador {
+    display: flex;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    width: 400px;
+}
+
+.buscador input {
+    border: none;
+    padding: 10px;
+    flex: 1;
+    outline: none;
+}
+
+.buscador button {
+    border: none;
+    background: transparent;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Botones */
+.acciones {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Estilos específicos */
+.btn-login {
+    background: white;
+}
+
+.btn-crear {
+    background: #d9a679;
+    color: white;
+}
