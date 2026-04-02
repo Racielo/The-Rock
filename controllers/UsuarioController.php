@@ -6,6 +6,6 @@ class UsuarioController {
         $modelo = new Usuarios();
         $usuarios = $modelo->obtenerUsuarios();
 
-        require_once "views/usuarios.php";
+        require_once "views/Usuarios.php";
     }
 }
