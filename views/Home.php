@@ -5,9 +5,6 @@
 </head>
 <body>
     <h1>Usuarios</h1>
-<?php var_dump($usuarios); ?>
-<?php foreach($usuarios as $u): ?>
-    <p><?php echo $u['nombre']; ?></p>
-<?php endforeach; ?>
+
 </body>
 </html>
