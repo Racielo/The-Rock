@@ -52,9 +52,12 @@
 
         <div class="categoria">
             <div class="icono">🎂</div>
-            <p>Eventos</p>
+            <p >Pasteles para eventos</p>
         </div>
-
+        <div class="categoria">
+            <div class="icono">🎂</div>
+            <p>Galletas</p>
+        </div>
         <div class="categoria">
             <div class="icono">🥐</div>
             <p>Panadería</p>

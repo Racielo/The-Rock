@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Usuarios - The Rock</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('assets/img/fondo.png');
+    background-size: cover;
+}
+
+.container {
+    padding: 30px;
+}
+
+.card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form input, .form select {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    flex: 1;
+}
+
+.form button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #8b5a2b;
+    color: white;
+    cursor: pointer;
+}
+
+/* TABLA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #8b5a2b;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+/* BOTONES */
+.btn {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-eliminar { background: red; color: white; }
+.btn-editar { background: #d9a679; color: white; }
+.btn-guardar { background: green; color: white; }
+
+/* ESTADOS */
+.activo {
+    color: green;
+    font-weight: bold;
+}
+
+.inactivo {
+    color: red;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="card">
+
+<h1>Usuarios</h1>
+
+<!-- FORM -->
+<div class="form">
+    <input type="text" id="nombre" placeholder="Nombre">
+    <input type="email" id="correo" placeholder="Correo">
+    <select id="estado">
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+    </select>
+    <button onclick="agregarUsuario()">Agregar</button>
+</div>
+
+<!-- TABLA -->
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tablaUsuarios"></tbody>
+</table>
+
+</div>
+</div>
+
+<script>
+let usuarios = [
+    {id: 1, nombre: "Juan Pérez", correo: "juan@gmail.com", estado: "Activo"},
+    {id: 2, nombre: "Ana López", correo: "ana@gmail.com", estado: "Inactivo"},
+    {id: 3, nombre: "Carlos Ruiz", correo: "carlos@gmail.com", estado: "Activo"}
+];
+
+let contador = 4;
+let editandoId = null;
+
+// MOSTRAR
+function mostrarUsuarios() {
+    const tabla = document.getElementById("tablaUsuarios");
+    tabla.innerHTML = "";
+
+    usuarios.forEach(user => {
+
+        let fila = `
+        <tr>
+            <td>${user.id}</td>
+        `;
+
+        if(editandoId === user.id){
+            fila += `
+                <td><input id="editNombre${user.id}" value="${user.nombre}"></td>
+                <td><input id="editCorreo${user.id}" value="${user.correo}"></td>
+                <td>
+                    <select id="editEstado${user.id}">
+                        <option ${user.estado=="Activo"?"selected":""}>Activo</option>
+                        <option ${user.estado=="Inactivo"?"selected":""}>Inactivo</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-guardar" onclick="guardarUsuario(${user.id})">Guardar</button>
+                </td>
+            `;
+        } else {
+            fila += `
+                <td>${user.nombre}</td>
+                <td>${user.correo}</td>
+                <td class="${user.estado == 'Activo' ? 'activo' : 'inactivo'}">${user.estado}</td>
+                <td>
+                    <button class="btn btn-editar" onclick="editarUsuario(${user.id})">Editar</button>
+                    <button class="btn btn-eliminar" onclick="eliminarUsuario(${user.id})">Eliminar</button>
+                </td>
+            `;
+        }
+
+        fila += `</tr>`;
+        tabla.innerHTML += fila;
+    });
+}
+
+// AGREGAR
+function agregarUsuario() {
+    const nombre = document.getElementById("nombre").value;
+    const correo = document.getElementById("correo").value;
+    const estado = document.getElementById("estado").value;
+
+    if(nombre === "" || correo === "") return;
+
+    usuarios.push({id: contador++, nombre, correo, estado});
+    mostrarUsuarios();
+
+    document.getElementById("nombre").value = "";
+    document.getElementById("correo").value = "";
+}
+
+// ELIMINAR
+function eliminarUsuario(id) {
+    const confirmar = confirm("¿Seguro que quieres eliminar este usuario?");
+
+    if(!confirmar) return;
+
+    usuarios = usuarios.filter(u => u.id !== id);
+    mostrarUsuarios();
+}
+
+// EDITAR
+function editarUsuario(id) {
+    editandoId = id;
+    mostrarUsuarios();
+}
+
+// GUARDAR
+function guardarUsuario(id) {
+    const nombre = document.getElementById(`editNombre${id}`).value;
+    const correo = document.getElementById(`editCorreo${id}`).value;
+    const estado = document.getElementById(`editEstado${id}`).value;
+
+    usuarios = usuarios.map(u => {
+        if(u.id === id){
+            return {id, nombre, correo, estado};
+        }
+        return u;
+    });
+
+    editandoId = null;
+    mostrarUsuarios();
+}
+
+// INICIAL
+mostrarUsuarios();
+</script>
+
+</body>
+</html>
