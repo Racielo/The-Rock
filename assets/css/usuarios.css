@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('../img/fondo.png');
+    background-size: cover;
+}
+
+.container {
+    padding: 30px;
+}
+
+.card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form input, .form select {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    flex: 1;
+}
+
+.form button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #8b5a2b;
+    color: white;
+    cursor: pointer;
+}
+
+/* TABLA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #8b5a2b;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+/* BOTONES */
+.btn {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-eliminar { background: red; color: white; }
+.btn-editar { background: #d9a679; color: white; }
+.btn-guardar { background: green; color: white; }
+
+/* ESTADOS */
+.activo {
+    color: green;
+    font-weight: bold;
+}
+
+.inactivo {
+    color: red;
+    font-weight: bold;
+}

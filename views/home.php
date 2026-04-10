@@ -1,47 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>The Rock</title>
+<meta charset="UTF-8">
+<title>The Rock</title>
 
-    <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>assets/css/styles.css">
 </head>
 <body>
 
 <div class="navbar">
 
-    <!-- Logo -->
     <div class="logo-container">
-        <img src="assets/img/logo.png" class="logo">
+        <img src="<?= BASE_URL ?>assets/img/logo.png" class="logo">
     </div>
 
-    <div class="buscador-2">
-
-        <button class="btn-todos">Todos los productos</button>
-
-        <div class="separador"></div>
-
-        <input type="text" placeholder="Buscar...">
-
-        <button class="btn-buscar">🔍</button>
-
-    </div>
-
-    <!-- Botones -->
     <div class="acciones">
-        <button class="btn-login">Iniciar sesión</button>
-        <button class="btn-crear">Crear cuenta</button>
+        <a href="<?= BASE_URL ?>?controller=auth&action=login">
+            <button class="btn-login">Iniciar sesión</button>
+        </a>
+
+        <a href="<?= BASE_URL ?>?controller=auth&action=registro">
+            <button class="btn-crear">Crear cuenta</button>
+        </a>
     </div>
 
 </div>
-<!-- SECCIÓN PRINCIPAL -->
+
+
 <div class="hero">
-
-    <!-- Título -->
     <h1 class="titulo-principal">Productos</h1>
-
-    <!-- Categorías -->
-    <div class="categorias">
+</div>
+ <div class="categorias">
 
         <div class="categoria">
             <div class="icono">
@@ -51,20 +40,28 @@
         </div>
 
         <div class="categoria">
-            <div class="icono">🎂</div>
-            <p >Pasteles para eventos</p>
+            <div class="icono">
+                <img src="assets/img/eventos.jpg">
+            </div>
+            <p>Pasteles para eventos</p>
         </div>
+
         <div class="categoria">
-            <div class="icono">🎂</div>
+            <div class="icono">
+                <img src="assets/img/galletas.jpg">
+            </div>
             <p>Galletas</p>
         </div>
+
         <div class="categoria">
-            <div class="icono">🥐</div>
+            <div class="icono">
+                <img src="assets/img/panaderia.jpg"> 
+            </div>
             <p>Panadería</p>
         </div>
 
     </div>
 
-</div>
+
 </body>
 </html>
