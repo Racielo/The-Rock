@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-
+<link rel="stylesheet" href="assets/css/fondo.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/auth.css">
 </head>
 

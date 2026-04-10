@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Usuarios</title>
-
+<link rel="stylesheet" href="assets/css/fondo.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/usuarios.css">
 </head>
 

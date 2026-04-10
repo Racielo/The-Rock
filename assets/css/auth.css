@@ -1,10 +1,3 @@
-body {
-    margin: 0;
-    font-family: Arial;
-    background-image: url('../img/fondo.png');
-    background-size: cover;
-}
-
 /* CONTENEDOR */
 .contenedor {
     display: flex;
