@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <link rel="stylesheet" href="assets/css/fondo.css">
-<link rel="stylesheet" href="<?= BASE_URL ?>assets/css/auth.css">
+<link rel="stylesheet" href="public/assets/css/auth.css">
 </head>
 
 <body>
@@ -13,7 +13,7 @@
 <div class="card">
 
 <div class="izquierda">
-    <img src="<?= BASE_URL ?>assets/img/logo.png" class="logo">
+    <img src="public/assets/img/logo.png" class="logo">
     <h3>Iniciar Sesión</h3>
 </div>
 
@@ -33,7 +33,7 @@
 
 <p>
 ¿No tienes cuenta?
-<a href="<?= BASE_URL ?>?controller=auth&action=registro">Regístrate</a>
+<a href="public/?controller=auth&action=registro">Regístrate</a>
 </p>
 
 </div>
@@ -49,6 +49,6 @@
 </div>
 </div>
 
-<script src="<?= BASE_URL ?>assets/js/auth.js"></script>
+<script src="public/assets/js/auth.js"></script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>The Rock</title>
-<link rel="stylesheet" href="assets/css/fondo.css">
-<link rel="stylesheet" href="<?= BASE_URL ?>assets/css/styles.css">
+<link rel="stylesheet" href="public/assets/css/fondo.css">
+<link rel="stylesheet" href="public/assets/css/styles.css">
 </head>
 <body>
 
@@ -12,22 +12,27 @@
 
 
     <div >
-        <img src="<?= BASE_URL ?>assets/img/logo.png" class="logo">
+        <img src="public/assets/img/logo.png" class="logo">
            </div>
 
     <div class="buscador-2">
-        <button class="btn-todos">Todos los productos</button>
+        <div class="btn-todos"> <!-- se van a implentar dropdown en el boton de "Todos los productos" -->
+            <p>Todos los productos<span></span></p>
+            <ul>
+                <!-- Aqui se pondran los productos de "Pasteles", "Pasteles para eventos", "galletas" y "panaderia" -->
+            </ul>
+        </div>
         <div class="separador"></div>
         <input type="text" placeholder="Buscar...">
         <button class="btn-buscar">🔍</button>
 
     </div>
         <div class="acciones">
-        <a href="<?= BASE_URL ?>?controller=auth&action=login">
+        <a href="?controller=auth&action=login">
             <button class="btn-login">Iniciar sesión</button>
         </a>
 
-        <a href="<?= BASE_URL ?>?controller=auth&action=registro">
+        <a href="?controller=auth&action=registro">
             <button class="btn-crear">Crear cuenta</button>
         </a>
     </div>
@@ -44,28 +49,28 @@
 
         <div class="categoria">
             <div class="icono">
-                <img src="assets/img/pasteles.jpg">
+                <img src="public/assets/img/pasteles.jpg">
             </div>
             <p>Pasteles</p>
         </div>
 
         <div class="categoria">
             <div class="icono">
-                <img src="assets/img/eventos.jpg">
+                <img src="public/assets/img/eventos.jpg">
             </div>
             <p>Pasteles para eventos</p>
         </div>
 
         <div class="categoria">
             <div class="icono">
-                <img src="assets/img/galletas.jpg">
+                <img src="public/assets/img/galletas.jpg">
             </div>
             <p>Galletas</p>
         </div>
 
         <div class="categoria">
             <div class="icono">
-                <img src="assets/img/panaderia.jpg"> 
+                <img src="public/assets/img/panaderia.jpg"> 
             </div>
             <p>Panadería</p>
         </div>

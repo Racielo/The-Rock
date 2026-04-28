@@ -1,13 +1,19 @@
 <?php
+require_once 'controllers/UsuarioController.php';
+require_once 'config/database.php';
 
-define('BASE_URL', '/The-Rock/');
+$menu= $_GET['menu'];
 
-$controller = $_GET['controller'] ?? 'home';
-$action = $_GET['action'] ?? 'index';
+$db=new Database();
+$conexion=$db->getConnection();
 
-require_once "controllers/" . ucfirst($controller) . "Controller.php";
-
-$controllerName = ucfirst($controller) . "Controller";
-$obj = new $controllerName();
-
-$obj->$action();
+if ($menu=='login'){
+    include 'views/login.php';
+}
+elseif($menu=='home'){
+    include 'views/home.php';
+}
+elseif($menu=='usuarios'){
+    $usuarios=new UsuarioController($conexion);
+    $usuarios->index();
+}

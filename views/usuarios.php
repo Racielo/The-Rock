@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <title>Usuarios</title>
 <link rel="stylesheet" href="assets/css/fondo.css">
-<link rel="stylesheet" href="<?= BASE_URL ?>assets/css/usuarios.css">
+<link rel="stylesheet" href="public/assets/css/usuarios.css">
 </head>
 
 <body>
 
-<a href="<?= BASE_URL ?>?controller=home&action=index">
+<a href="public/?controller=home&action=index">
     <button>Volver</button>
 </a>
 
@@ -44,6 +44,6 @@
 </div>
 </div>
 
-<script src="<?= BASE_URL ?>assets/js/usuarios.js"></script>
+<script src="public/assets/js/usuarios.js"></script>
 </body>
 </html>
