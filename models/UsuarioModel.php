@@ -8,13 +8,17 @@ class UsuarioModel {
 
     public function listar() {
         $sql = "SELECT * FROM usuarios ORDER BY id DESC";
-        return $this->db->query($sql)->fetchAll();
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function guardar($nombre, $email) {
-        $sql = "INSERT INTO usuarios (nombre, email) VALUES (?, ?)";
+    public function guardar($nombre, $correo, $pass) {
+        $sql = "INSERT INTO usuarios (nombre, correo, pass) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([trim($nombre), trim($email)]);
+        return $stmt->execute([
+            trim($nombre),
+            trim($correo),
+            trim($pass)
+        ]);
     }
 
     public function eliminar($id) {
@@ -27,19 +31,24 @@ class UsuarioModel {
         $sql = "SELECT * FROM usuarios WHERE id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-     public function veridicar($correo,$contrasennia) {
-        $sql = "SELECT * FROM usuarios WHERE  correo=? and pass=?";
+    public function verificar($correo, $pass) {
+        $sql = "SELECT * FROM usuarios WHERE correo = ? AND pass = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$correo,$contrasennia]);
-        return $stmt->fetch();
+        $stmt->execute([$correo, $pass]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function actualizar($id, $nombre, $email) {
-        $sql = "UPDATE usuarios SET nombre = ?, email = ? WHERE id = ?";
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([trim($nombre), trim($email), $id]);
-    }
+public function actualizar($id, $nombre, $correo) {
+    $sql = "UPDATE usuarios SET nombre = ?, correo = ? WHERE id = ?";
+    $stmt = $this->db->prepare($sql);
+    return $stmt->execute([
+        trim($nombre),
+        trim($correo),
+        $id
+    ]);
 }
+}
+?>

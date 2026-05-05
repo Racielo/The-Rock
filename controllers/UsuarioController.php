@@ -3,116 +3,77 @@ require_once 'models/UsuarioModel.php';
 
 class UsuarioController {
     private $modelo;
-    
+
     public function __construct($conexion) {
         $this->modelo = new UsuarioModel($conexion);
     }
 
-    public function index():void {
-        /*
-        try {
-            $usuarios = $this->modelo->listar();
-
-            $viewPath = 'views/UsuarioView.php';
-            
-            if (!file_exists($viewPath)) {
-                throw new Exception("La vista '$viewPath' no se encuentra en el servidor.");
-            }
-
-            include $viewPath;
-          
-        } 
-        catch (Throwable $e) {
-            logger("Error en UsuarioController::index -> " . $e->getMessage());
-            include 'views/errors/404.php';
-        }  
-            */
-
+    public function index(): void {
+        $usuarios = $this->modelo->listar();
         include 'views/usuarios.php';
     }
 
-    public function veirifar(){
-        $correo=$_POST['correo'];
-        $pass=$_POST['password'];
+    public function verificar() {
+        $correo = $_POST['correo'] ?? '';
+        $pass = $_POST['password'] ?? '';
 
-        $tabla=$this->modelo->veridicar($correo,$pass);
+        $usuario = $this->modelo->verificar($correo, $pass);
 
-        if ($tabla){
-            header ("Location: ?menu=usuarios");
+        if ($usuario) {
+            header("Location: ?menu=usuarios");
+        } else {
+            header("Location: ?menu=login");
         }
-        else{
-            header ("Location: ?menu=login");
-        }
-
-        
-
-    }
-
-    public function crear():void {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = $_POST['nombre'] ?? '';
-            $email = $_POST['email'] ?? '';
-
-            if (!empty($nombre) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $this->modelo->guardar($nombre, $email);
-            }
-            header("Location: index.php");
-            exit;
-        }
-    }
-
-    public function borrar(int $id): void {
-        if ($id) {
-            $this->modelo->eliminar($id);
-        }
-        header("Location: index.php");
         exit;
     }
 
-  
-    public function editar(int $id):void {
+    public function crear(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $_POST['nombre'] ?? '';
-            $email = $_POST['email'] ?? '';
+            $correo = $_POST['correo'] ?? '';
+            $pass = $_POST['pass'] ?? '';
 
-            if (!empty($nombre) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $this->modelo->actualizar($id, $nombre, $email);
+            if (!empty($nombre) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+                $this->modelo->guardar($nombre, $correo, $pass);
             }
 
-            header("Location: index.php");
+            header("Location: ?menu=usuarios");
             exit;
         }
-
-        // Si es GET, buscamos al usuario para llenar el formulario
-        $usuario = $this->modelo->obtenerPorId($id);
-        if (!$usuario) {
-            header("Location: index.php");
-            exit;
-        }
-    
-        include 'views/editUsuario.php';
     }
+
+    public function borrar($id): void {
+        if ($id) {
+            $this->modelo->eliminar($id);
+        }
+
+        header("Location: ?menu=usuarios");
+        exit;
+    }
+
+public function editar(int $id): void {
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nombre = $_POST['nombre'] ?? '';
+        $correo = $_POST['email'] ?? '';
+
+        if (!empty($nombre) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            $this->modelo->actualizar($id, $nombre, $correo);
+        }
+
+        header("Location: ?menu=usuarios");
+        exit;
+    }
+
+    // 🔥 ESTA PARTE ES LA QUE TE FALTA
+    $usuario = $this->modelo->obtenerPorId($id);
+
+    if (!$usuario) {
+        echo "Usuario no encontrado";
+        exit;
+    }
+
+    include 'views/editUsuario.php';
 }
-
-/*
-
-Les  comparto como un extra
-FILTER_VALIDATE_INT
-Valida si es un número entero.
-FILTER_VALIDATE_FLOAT
-Valida números decimales.
-FILTER_VALIDATE_BOOLEAN
-Valida valores booleanos (true, false, 1, 0, "yes", "no").
-FILTER_VALIDATE_EMAIL
-Valida correos electrónicos.
-FILTER_VALIDATE_URL
-Valida URLs.
-FILTER_VALIDATE_IP
-Valida direcciones IP (IPv4 o IPv6).
-FILTER_VALIDATE_MAC
-Valida direcciones MAC.
-FILTER_VALIDATE_REGEXP
-Permite validar usando una expresión regular personalizada.
-*/
-
+}
 ?>
