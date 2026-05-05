@@ -28,7 +28,24 @@ class UsuarioController {
         }  
             */
 
-        require_once 'views/usuarios.php';
+        include 'views/usuarios.php';
+    }
+
+    public function veirifar(){
+        $correo=$_POST['correo'];
+        $pass=$_POST['password'];
+
+        $tabla=$this->modelo->veridicar($correo,$pass);
+
+        if ($tabla){
+            header ("Location: ?menu=usuarios");
+        }
+        else{
+            header ("Location: ?menu=login");
+        }
+
+        
+
     }
 
     public function crear():void {

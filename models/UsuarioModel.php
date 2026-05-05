@@ -30,6 +30,13 @@ class UsuarioModel {
         return $stmt->fetch();
     }
 
+     public function veridicar($correo,$contrasennia) {
+        $sql = "SELECT * FROM usuarios WHERE  correo=? and pass=?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$correo,$contrasennia]);
+        return $stmt->fetch();
+    }
+
     public function actualizar($id, $nombre, $email) {
         $sql = "UPDATE usuarios SET nombre = ?, email = ? WHERE id = ?";
         $stmt = $this->db->prepare($sql);

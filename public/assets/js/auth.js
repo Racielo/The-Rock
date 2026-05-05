@@ -7,8 +7,7 @@ function login() {
 
         alert("Bienvenido 👨‍🍳");
 
-        window.location.href = "/The-Rock/?controller=usuario&action=index";
-
+window.location.href = "TheRock/?menu=usuarios";
     } else {
         alert("Correo o contraseña incorrectos");
     }

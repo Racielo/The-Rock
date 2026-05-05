@@ -28,11 +28,11 @@
 
     </div>
         <div class="acciones">
-        <a href="?controller=auth&action=login">
+        <a href="?menu=login">
             <button class="btn-login">Iniciar sesión</button>
         </a>
 
-        <a href="?controller=auth&action=registro">
+        <a href="?menu=registro">
             <button class="btn-crear">Crear cuenta</button>
         </a>
     </div>
