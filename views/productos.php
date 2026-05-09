@@ -7,84 +7,159 @@
 
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/usuarios.css">
+    <link rel="stylesheet" href="public/assets/css/sidebar.css">
 </head>
 
 <body>
 
-<a href="?menu=home">
-    <button>Volver</button>
-</a>
+    <!-- BOTON MENU -->
+    <button class="btn-menu" onclick="abrirPanel()">
+        ☰
+    </button>
 
-<div class="container">
-<div class="card">
+    <!-- SIDEBAR -->
+    <div id="sidebar" class="sidebar">
 
-<h1>Inventario de Materia Prima</h1>
+        <button class="cerrar" onclick="cerrarPanel()">
+            ✖
+        </button>
 
-<form method="POST" action="?menu=crearProducto">
+        <h2>The Rock</h2>
 
-    <input type="text" name="ingrediente" placeholder="Ingrediente" required>
-    
-    <input type="number" name="cantidad" placeholder="Cantidad actual" required>
-    
-    <input type="number" name="maximo" placeholder="Cantidad máxima" required>
+        <ul>
+            <li><a href="?menu=home">Inicio</a></li>
+            <li><a href="?menu=usuarios">Usuarios</a></li>
+            <li><a href="?menu=productos">Productos</a></li>
+            <li><a href="?menu=inventario">Inventario</a></li>
+            <li><a href="?menu=ventas">Ventas</a></li>
+            <li><a href="?menu=reportes">Reportes</a></li>
+        </ul>
 
-    <input type="text" name="unidad" placeholder="Unidad (kg, l, piezas)" required>
+    </div>
 
-    <input type="date" name="fecha" required>
+    <!-- CONTENIDO -->
+    <div class="container">
 
-    <button type="submit">Agregar</button>
-</form>
+        <div class="card">
 
-<table>
-<thead>
-<tr>
-    <th>ID</th>
-    <th>Ingrediente</th>
-    <th>Cantidad</th>
-    <th>Máximo</th>
-    <th>Unidad</th>
-    <th>% Stock</th>
-    <th>Caducidad</th>
-    <th>Acciones</th>
-</tr>
-</thead>
+            <h1>Inventario de Materia Prima</h1>
 
-<tbody>
-<?php foreach ($productos as $p): 
-    $porcentaje = ($p['cantidad_actual'] / $p['cantidad_maxima']) * 100;
-?>
+            <form method="POST" action="?menu=crearProducto">
 
-<tr>
-    <td><?= $p['id'] ?></td>
-    <td><?= $p['ingrediente'] ?></td>
-    <td><?= $p['cantidad_actual'] ?></td>
-    <td><?= $p['cantidad_maxima'] ?></td>
-    <td><?= $p['unidad_medida'] ?></td>
+                <input type="text"
+                       name="ingrediente"
+                       placeholder="Ingrediente"
+                       required>
 
-    <td style="color: <?= $porcentaje < 30 ? 'red' : ($porcentaje < 60 ? 'orange' : 'green') ?>">
-        <?= round($porcentaje) ?>%
-    </td>
+                <input type="number"
+                       name="cantidad"
+                       placeholder="Cantidad actual"
+                       required>
 
-    <td><?= $p['fecha'] ?></td>
+                <input type="number"
+                       name="maximo"
+                       placeholder="Cantidad máxima"
+                       required>
 
-    <td>
-        <a href="?menu=editarProducto&id=<?= $p['id'] ?>">
-            <button>Editar</button>
-        </a>
+                <input type="text"
+                       name="unidad"
+                       placeholder="Unidad (kg, l, piezas)"
+                       required>
 
-        <a href="?menu=borrarProducto&id=<?= $p['id'] ?>" onclick="return confirm('¿Eliminar producto?')">
-            <button>Eliminar</button>
-        </a>
-    </td>
-</tr>
+                <input type="date"
+                       name="fecha"
+                       required>
 
-<?php endforeach; ?>
-</tbody>
+                <button type="submit">
+                    Agregar
+                </button>
 
-</table>
+            </form>
 
-</div>
-</div>
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ingrediente</th>
+                        <th>Cantidad</th>
+                        <th>Máximo</th>
+                        <th>Unidad</th>
+                        <th>% Stock</th>
+                        <th>Caducidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <?php foreach ($productos as $p):
+
+                        $porcentaje =
+                        ($p['cantidad_actual'] /
+                        $p['cantidad_maxima']) * 100;
+
+                    ?>
+
+                    <tr>
+
+                        <td><?= $p['id'] ?></td>
+
+                        <td><?= $p['ingrediente'] ?></td>
+
+                        <td><?= $p['cantidad_actual'] ?></td>
+
+                        <td><?= $p['cantidad_maxima'] ?></td>
+
+                        <td><?= $p['unidad_medida'] ?></td>
+
+                        <td style="
+                            color:
+                            <?= $porcentaje < 30
+                            ? 'red'
+                            : ($porcentaje < 60
+                            ? 'orange'
+                            : 'green') ?>
+                        ">
+
+                            <?= round($porcentaje) ?>%
+
+                        </td>
+
+                        <td><?= $p['fecha'] ?></td>
+
+                        <td>
+
+                            <a href="?menu=editarProducto&id=<?= $p['id'] ?>">
+                                <button>
+                                    Editar
+                                </button>
+                            </a>
+
+                            <a href="?menu=borrarProducto&id=<?= $p['id'] ?>"
+                               onclick="return confirm('¿Eliminar producto?')">
+
+                                <button>
+                                    Eliminar
+                                </button>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    <?php endforeach; ?>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <script src="public/assets/js/sidebar.js"></script>
 
 </body>
 </html>

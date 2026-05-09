@@ -1,0 +1,80 @@
+/* ===== BOTON MENU ===== */
+.btn-menu {
+    background: white;
+    font-size: 25px;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    position: fixed;
+
+    top: 0;
+    left: -300px;
+
+    width: 250px;
+    height: 100%;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+
+    padding: 20px;
+
+    transition: 0.4s ease;
+
+    z-index: 1000;
+}
+
+/* ACTIVO */
+.sidebar.activo {
+    left: 0;
+}
+
+/* TITULO */
+.sidebar h2 {
+    color: white;
+    text-align: center;
+}
+
+/* LISTA */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+/* ITEMS */
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+/* LINKS */
+.sidebar ul li a {
+    text-decoration: none;
+    color: #442919;
+
+    display: block;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+/* HOVER */
+.sidebar ul li a:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateX(5px);
+}
+
+/* BOTON CERRAR */
+.cerrar {
+    background: transparent;
+    color: white;
+
+    font-size: 20px;
+
+    float: right;
+}

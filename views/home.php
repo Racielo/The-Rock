@@ -1,51 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>The Rock</title>
-<link rel="stylesheet" href="public/assets/css/fondo.css">
-<link rel="stylesheet" href="public/assets/css/styles.css">
+    <meta charset="UTF-8">
+    <title>The Rock</title>
+    <link rel="stylesheet" href="public/assets/css/fondo.css">
+    <link rel="stylesheet" href="public/assets/css/styles.css">
+    <link rel="stylesheet" href="public/assets/css/sidebar.css">
 </head>
+
 <body>
 
-<div class="navbar">
+    <div class="navbar">
+        <button class="btn-menu" onclick="abrirPanel()">
+            ☰
+        </button>
 
-
-    <div >
-        <img src="public/assets/img/logo.png" class="logo">
-           </div>
-
-    <div class="buscador-2">
-        <div class="btn-todos"> <!-- se van a implentar dropdown en el boton de "Todos los productos" -->
-            <p>Todos los productos<span></span></p>
-            <ul>
-                <!-- Aqui se pondran los productos de "Pasteles", "Pasteles para eventos", "galletas" y "panaderia" -->
-            </ul>
+        <div>
+            <img src="public/assets/img/logo.png" class="logo">
         </div>
-        <div class="separador"></div>
-        <input type="text" placeholder="Buscar...">
-        <button class="btn-buscar">🔍</button>
 
-    </div>
+        <div class="buscador-2">
+            <div class="btn-todos"> <!-- se van a implentar dropdown en el boton de "Todos los productos" -->
+                <p>Todos los productos<span></span></p>
+                <ul>
+                    <!-- Aqui se pondran los productos de "Pasteles", "Pasteles para eventos", "galletas" y "panaderia" -->
+                </ul>
+            </div>
+            <div class="separador"></div>
+            <input type="text" placeholder="Buscar...">
+            <button class="btn-buscar">🔍</button>
+
+        </div>
         <div class="acciones">
-        <a href="?menu=login">
-            <button class="btn-login">Iniciar sesión</button>
-        </a>
+            <a href="?menu=login">
+                <button class="btn-login">Iniciar sesión</button>
+            </a>
 
-        <a href="?menu=registro">
-            <button class="btn-crear">Crear cuenta</button>
-        </a>
+            <a href="?menu=registro">
+                <button class="btn-crear">Crear cuenta</button>
+            </a>
+        </div>
     </div>
+
+    <div id="sidebar" class="sidebar">
+
+        <button class="cerrar" onclick="cerrarPanel()">
+            ✖
+        </button>
+
+        <h2>Menu</Menu>
+        </h2>
+
+        <ul>
+            <li><a href="#"> Dashboard</a></li>
+            <li><a href="#"> Productos</a></li>
+            <li><a href="#"> Pedidos</a></li>
+            <li><a href="#"> Clientes</a></li>
+            <li><a href="#"> Reportes</a></li>
+            <li><a href="#"> Configuración</a></li>
+        </ul>
+
     </div>
 
-
-</div>
-
-
-<div class="hero">
-    <h1 class="titulo-principal">Productos</h1>
-</div>
- <div class="categorias">
+    <div class="hero">
+        <h1 class="titulo-principal">Productos</h1>
+    </div>
+    <div class="categorias">
 
         <div class="categoria">
             <div class="icono">
@@ -70,13 +91,14 @@
 
         <div class="categoria">
             <div class="icono">
-                <img src="public/assets/img/panaderia.jpg"> 
+                <img src="public/assets/img/panaderia.jpg">
             </div>
             <p>Panadería</p>
         </div>
 
     </div>
-
+    <script src="public/assets/js/sidebar.js"></script>
 
 </body>
+
 </html>
