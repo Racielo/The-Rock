@@ -13,19 +13,31 @@ class UsuarioController {
         include 'views/usuarios.php';
     }
 
-    public function verificar() {
-        $correo = $_POST['correo'] ?? '';
-        $pass = $_POST['password'] ?? '';
+public function verificar() {
 
-        $usuario = $this->modelo->verificar($correo, $pass);
+    $correo = $_POST['correo'] ?? '';
 
-        if ($usuario) {
-            header("Location: ?menu=usuarios");
-        } else {
-            header("Location: ?menu=login");
-        }
-        exit;
+    $pass = $_POST['password'] ?? '';
+
+    $usuario = $this->modelo->verificar($correo, $pass);
+
+    if ($usuario) {
+
+        session_start();
+
+        $_SESSION['usuario'] = $usuario['nombre'];
+
+        $_SESSION['rol'] = $usuario['rol'];
+
+        header("Location: ?menu=home");
+
+    } else {
+
+        header("Location: ?menu=login");
     }
+
+    exit;
+}
 
 public function crear(): void {
 

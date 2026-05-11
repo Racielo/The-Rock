@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -72,15 +75,42 @@
         </button>
 
         <h2>Menu</Menu>
-        </h2>
+        </h2>   
 
-        <ul>
-            <li><a href="?menu=productos"> Productos</a></li>
-            <li><a href="#"> Pedidos</a></li>
-            <li><a href="#"> Clientes</a></li>
-            <li><a href="#"> Reportes</a></li>
-            <li><a href="#"> Configuración</a></li>
-        </ul>
+<ul>
+
+    <li>
+        <a href="?menu=home">Dashboard</a>
+    </li>
+
+    <li>
+        <a href="?menu=productoscliente">Productos</a>
+    </li>
+
+<?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
+        <li>
+            <a href="?menu=usuarios">Usuarios</a>
+        </li>
+
+        <li>
+            <a href="?menu=inventario">Inventario</a>
+        </li>
+
+        <li>
+            <a href="?menu=ventas">Ventas</a>
+        </li>
+
+        <li>
+            <a href="?menu=reportes">Reportes</a>
+        </li>
+
+        <li>
+            <a href="?menu=configuracion">Configuración</a>
+        </li>
+
+    <?php endif; ?>
+
+</ul>
 
     </div>
 
