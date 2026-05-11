@@ -2,12 +2,15 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
+
     <title>Inventario</title>
 
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/usuarios.css">
     <link rel="stylesheet" href="public/assets/css/sidebar.css">
+
 </head>
 
 <body>
@@ -44,42 +47,31 @@
 
             <h1>Inventario de Materia Prima</h1>
 
-            <form method="POST" action="?menu=crearProducto">
+            <!-- BOTON AGREGAR -->
+            <button class="btn-agregar"
+                    onclick="abrirModalProducto()">
+
+                + Agregar Producto
+
+            </button>
+
+            <!-- BUSCADOR -->
+            <div class="buscador">
 
                 <input type="text"
-                       name="ingrediente"
-                       placeholder="Ingrediente"
-                       required>
+                       id="buscarProducto"
+                       placeholder="Buscar por ID, ingrediente o unidad..."
+                       onkeyup="buscarProductos()">
 
-                <input type="number"
-                       name="cantidad"
-                       placeholder="Cantidad actual"
-                       required>
+            </div>
 
-                <input type="number"
-                       name="maximo"
-                       placeholder="Cantidad máxima"
-                       required>
-
-                <input type="text"
-                       name="unidad"
-                       placeholder="Unidad (kg, l, piezas)"
-                       required>
-
-                <input type="date"
-                       name="fecha"
-                       required>
-
-                <button type="submit">
-                    Agregar
-                </button>
-
-            </form>
-
-            <table>
+            <!-- TABLA -->
+            <table id="tablaProductos">
 
                 <thead>
+
                     <tr>
+
                         <th>ID</th>
                         <th>Ingrediente</th>
                         <th>Cantidad</th>
@@ -88,7 +80,9 @@
                         <th>% Stock</th>
                         <th>Caducidad</th>
                         <th>Acciones</th>
+
                     </tr>
+
                 </thead>
 
                 <tbody>
@@ -130,12 +124,21 @@
 
                         <td>
 
-                            <a href="?menu=editarProducto&id=<?= $p['id'] ?>">
-                                <button>
-                                    Editar
-                                </button>
-                            </a>
+                            <!-- EDITAR -->
+                            <button onclick="abrirEditarProducto(
+                                '<?= $p['id'] ?>',
+                                '<?= $p['ingrediente'] ?>',
+                                '<?= $p['cantidad_actual'] ?>',
+                                '<?= $p['cantidad_maxima'] ?>',
+                                '<?= $p['unidad_medida'] ?>',
+                                '<?= $p['fecha'] ?>'
+                            )">
 
+                                Editar
+
+                            </button>
+
+                            <!-- ELIMINAR -->
                             <a href="?menu=borrarProducto&id=<?= $p['id'] ?>"
                                onclick="return confirm('¿Eliminar producto?')">
 
@@ -159,7 +162,114 @@
 
     </div>
 
+    <!-- MODAL AGREGAR PRODUCTO -->
+    <div id="modalAgregarProducto" class="modal">
+
+        <div class="modal-contenido">
+
+            <span class="cerrar-modal"
+                  onclick="cerrarModalProducto()">
+
+                &times;
+
+            </span>
+
+            <h2>Agregar Producto</h2>
+
+            <form method="POST"
+                  action="?menu=crearProducto">
+
+                <input type="text"
+                       name="ingrediente"
+                       placeholder="Ingrediente"
+                       required>
+
+                <input type="number"
+                       name="cantidad"
+                       placeholder="Cantidad actual"
+                       required>
+
+                <input type="number"
+                       name="maximo"
+                       placeholder="Cantidad máxima"
+                       required>
+
+                <input type="text"
+                       name="unidad"
+                       placeholder="Unidad"
+                       required>
+
+                <input type="date"
+                       name="fecha"
+                       required>
+
+                <button type="submit">
+                    Guardar
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL EDITAR PRODUCTO -->
+    <div id="modalProducto" class="modal">
+
+        <div class="modal-contenido">
+
+            <span class="cerrar-modal"
+                  onclick="cerrarEditarProducto()">
+
+                &times;
+
+            </span>
+
+            <h2>Editar Producto</h2>
+
+            <form method="POST"
+                  id="formEditarProducto">
+
+                <input type="text"
+                       name="ingrediente"
+                       id="editIngrediente"
+                       required>
+
+                <input type="number"
+                       name="cantidad"
+                       id="editCantidad"
+                       required>
+
+                <input type="number"
+                       name="maximo"
+                       id="editMaximo"
+                       required>
+
+                <input type="text"
+                       name="unidad"
+                       id="editUnidad"
+                       required>
+
+                <input type="date"
+                       name="fecha"
+                       id="editFecha"
+                       required>
+
+                <button type="submit">
+                    Guardar Cambios
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
     <script src="public/assets/js/sidebar.js"></script>
+        <script src="public/assets/js/productos.js"></script>
+
 
 </body>
+
 </html>

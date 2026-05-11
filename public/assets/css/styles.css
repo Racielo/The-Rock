@@ -126,7 +126,7 @@ button {
     max-width: 120px;
 }
 
-/* EFECTO HOVER 🔥 */
+/* EFECTO HOVER (expandirse ligeramente) */
 .categoria:hover {
     transform: scale(1.1);
     transition: 0.3s;

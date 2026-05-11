@@ -27,20 +27,31 @@ class UsuarioController {
         exit;
     }
 
-    public function crear(): void {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = $_POST['nombre'] ?? '';
-            $correo = $_POST['correo'] ?? '';
-            $pass = $_POST['pass'] ?? '';
+public function crear(): void {
 
-            if (!empty($nombre) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-                $this->modelo->guardar($nombre, $correo, $pass);
-            }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            header("Location: ?menu=usuarios");
-            exit;
+        $nombre = $_POST['nombre'] ?? '';
+        $correo = $_POST['correo'] ?? '';
+        $pass = $_POST['pass'] ?? '';
+
+        $estado = "Activo";
+
+        if (!empty($nombre) &&
+            filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+
+            $this->modelo->guardar(
+                $nombre,
+                $correo,
+                $pass,
+                $estado
+            );
         }
+
+        header("Location: ?menu=usuarios");
+        exit;
     }
+}
 
     public function borrar($id): void {
         if ($id) {
@@ -56,9 +67,10 @@ public function editar(int $id): void {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nombre = $_POST['nombre'] ?? '';
         $correo = $_POST['email'] ?? '';
+        $estado = $_POST['estado'] ?? '';
 
         if (!empty($nombre) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            $this->modelo->actualizar($id, $nombre, $correo);
+            $this->modelo->actualizar($id, $nombre, $correo, $estado);
         }
 
         header("Location: ?menu=usuarios");
@@ -71,7 +83,7 @@ public function editar(int $id): void {
     if (!$usuario) {
         echo "Usuario no encontrado";
         exit;
-    }
+    }   
 
     include 'views/editUsuario.php';
 }

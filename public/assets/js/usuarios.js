@@ -1,84 +1,74 @@
-let usuarios = [
-    {id: 1, nombre: "Juan Pérez", correo: "juan@gmail.com", estado: "Activo"},
-    {id: 2, nombre: "Ana López", correo: "ana@gmail.com", estado: "Inactivo"}
-];
+/* =========================
+   MODAL AGREGAR
+========================= */
 
-let contador = 3;
-let editandoId = null;
+function abrirModal(){
 
-function mostrarUsuarios() {
-    const tabla = document.getElementById("tablaUsuarios");
-    tabla.innerHTML = "";
+    document.getElementById("modalUsuario")
+            .style.display = "flex";
+}
 
-    usuarios.forEach(user => {
-        let fila = `<tr><td>${user.id}</td>`;
+function cerrarModal(){
 
-        if(editandoId === user.id){
-            fila += `
-                <td><input id="editNombre${user.id}" value="${user.nombre}"></td>
-                <td><input id="editCorreo${user.id}" value="${user.correo}"></td>
-                <td>
-                    <select id="editEstado${user.id}">
-                        <option ${user.estado=="Activo"?"selected":""}>Activo</option>
-                        <option ${user.estado=="Inactivo"?"selected":""}>Inactivo</option>
-                    </select>
-                </td>
-                <td>
-                    <button onclick="guardarUsuario(${user.id})">Guardar</button>
-                </td>
-            `;
-        } else {
-            fila += `
-                <td>${user.nombre}</td>
-                <td>${user.correo}</td>
-                <td class="${user.estado=='Activo'?'activo':'inactivo'}">${user.estado}</td>
-                <td>
-                    <button onclick="editarUsuario(${user.id})">Editar</button>
-                    <button onclick="eliminarUsuario(${user.id})">Eliminar</button>
-                </td>
-            `;
+    document.getElementById("modalUsuario")
+            .style.display = "none";
+}
+
+/* =========================
+   MODAL EDITAR
+========================= */
+
+function abrirEditar(id, nombre, correo, estado){
+
+    document.getElementById("modalEditar")
+            .style.display = "flex";
+
+    document.getElementById("editNombre")
+            .value = nombre;
+
+    document.getElementById("editCorreo")
+            .value = correo;
+
+    document.getElementById("editEstado")
+            .value = estado;
+
+    document.getElementById("formEditar")
+            .action = "?menu=editar&id=" + id;
+}
+
+function cerrarEditar(){
+
+    document.getElementById("modalEditar")
+            .style.display = "none";
+}
+
+/* =========================
+   BUSCADOR
+========================= */
+
+function buscarUsuarios(){
+
+    let input = document.getElementById("buscarUsuario")
+                        .value
+                        .toLowerCase();
+
+    let tabla = document.getElementById("tablaUsuarios");
+
+    let filas = tabla.getElementsByTagName("tr");
+
+    for(let i = 1; i < filas.length; i++){
+
+        let textoFila = filas[i]
+                        .textContent
+                        .toLowerCase();
+
+        if(textoFila.includes(input)){
+
+            filas[i].style.display = "";
+
+        }else{
+
+            filas[i].style.display = "none";
         }
-
-        fila += "</tr>";
-        tabla.innerHTML += fila;
-    });
+    }
 }
-
-function agregarUsuario() {
-    const nombre = document.getElementById("nombre").value;
-    const correo = document.getElementById("correo").value;
-    const estado = document.getElementById("estado").value;
-
-    if(nombre === "" || correo === "") return;
-
-    usuarios.push({id: contador++, nombre, correo, estado});
-    mostrarUsuarios();
-}
-
-function eliminarUsuario(id) {
-    usuarios = usuarios.filter(u => u.id !== id);
-    mostrarUsuarios();
-}
-
-function editarUsuario(id) {
-    editandoId = id;
-    mostrarUsuarios();
-}
-
-function guardarUsuario(id) {
-    const nombre = document.getElementById(`editNombre${id}`).value;
-    const correo = document.getElementById(`editCorreo${id}`).value;
-    const estado = document.getElementById(`editEstado${id}`).value;
-
-    usuarios = usuarios.map(u => {
-        if(u.id === id){
-            return {id, nombre, correo, estado};
-        }
-        return u;
-    });
-
-    editandoId = null;
-    mostrarUsuarios();
-}
-
-mostrarUsuarios();

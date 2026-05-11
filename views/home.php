@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/styles.css">
     <link rel="stylesheet" href="public/assets/css/sidebar.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
+
 </head>
 
 <body>
@@ -21,11 +23,13 @@
         </div>
 
         <div class="buscador-2">
-            <div class="btn-todos"> <!-- se van a implentar dropdown en el boton de "Todos los productos" -->
-                <p>Todos los productos<span></span></p>
-                <ul>
-                    <!-- Aqui se pondran los productos de "Pasteles", "Pasteles para eventos", "galletas" y "panaderia" -->
-                </ul>
+            <div class="">
+                <button class="dropbtn">Todos los productos</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
             </div>
             <div class="separador"></div>
             <input type="text" placeholder="Buscar...">
