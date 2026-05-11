@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/styles.css">
     <link rel="stylesheet" href="public/assets/css/sidebar.css">
-    <link rel="stylesheet" href="public/assets/css/style.css">
 
 </head>
 
@@ -23,14 +22,33 @@
         </div>
 
         <div class="buscador-2">
-            <div class="">
-                <button class="dropbtn">Todos los productos</button>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
+<div class="dropdown">
+
+    <button class="dropbtn">
+        Todos los productos ▼
+    </button>
+
+    <div class="dropdown-content">
+
+        <a href="?menu=pasteles">
+            Pasteles
+        </a>
+
+        <a href="?menu=eventos">
+            Pasteles para eventos
+        </a>
+
+        <a href="?menu=galletas">
+            Galletas
+        </a>
+
+        <a href="?menu=panaderia">
+            Panadería
+        </a>
+
+    </div>
+
+</div>
             <div class="separador"></div>
             <input type="text" placeholder="Buscar...">
             <button class="btn-buscar">🔍</button>
@@ -57,8 +75,7 @@
         </h2>
 
         <ul>
-            <li><a href="#"> Dashboard</a></li>
-            <li><a href="#"> Productos</a></li>
+            <li><a href="?menu=productos"> Productos</a></li>
             <li><a href="#"> Pedidos</a></li>
             <li><a href="#"> Clientes</a></li>
             <li><a href="#"> Reportes</a></li>
