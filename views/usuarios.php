@@ -21,24 +21,7 @@
     </button>
 
     <!-- SIDEBAR -->
-    <div id = "sidebar" class="sidebar">
-
-        <button class = "cerrar" onclick="cerrarPanel()">
-            ✖
-        </button>
-
-        <h2>The Rock</h2>
-
-        <ul>
-            <li><a href = "?menu=home">Inicio</a></li>
-            <li><a href = "?menu=usuarios">Usuarios</a></li>
-            <li><a href = "?menu=productos">Productos</a></li>
-            <li><a href = "?menu=ventas">Ventas</a></li>
-            <li><a href = "?menu=inventario">Inventario</a></li>
-            <li><a href = "?menu=reportes">Reportes</a></li>
-        </ul>
-
-    </div>
+<?php include 'views/layouts/sidebar.php'; ?>
 
     <!-- CONTENIDO -->
     <div class = "container">

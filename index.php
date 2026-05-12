@@ -70,7 +70,16 @@ if ($menu == 'login') {
     $productos = new ProductoController($conexion);
     $productos->editar($_GET['id']);
 
-} else {
+}elseif ($menu == 'logout') {
+
+    session_start();
+
+    session_destroy();
+
+    header("Location: ?menu=home");
+
+    exit;} 
+else {
 
     include 'views/home.php';
 }

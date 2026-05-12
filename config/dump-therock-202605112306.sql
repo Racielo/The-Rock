@@ -58,7 +58,7 @@ CREATE TABLE `usuarios` (
   `estado` varchar(20) DEFAULT 'Activo',
   `rol` varchar(20) NOT NULL DEFAULT 'usuario',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Jose Luis Cruz','juan@gmail.com','1234','Activo','admin'),(7,'Mario','Mario@sep.gob.mx','1234','Activo','usuario');
+INSERT INTO `usuarios` VALUES (1,'Jose Luis Cruz','JoseLuis@gmail.com','1234','Activo','admin'),(7,'Mario','Mario@sep.gob.mx','1234','Activo','usuario'),(15,'ANDREA MICHEL','Angel@gmail.com','12345','Activo','usuario');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,4 +84,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-10 22:54:47
+-- Dump completed on 2026-05-11 23:06:18

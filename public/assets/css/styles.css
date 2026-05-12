@@ -17,6 +17,37 @@
     overflow: visible;
 }
 
+.navbar-left,
+.navbar-center,
+.navbar-right{
+
+    display: flex;
+
+    align-items: center;
+}
+.navbar-left{
+
+    gap: 20px;
+}
+.navbar-right{
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+/* ICONOS NAVBAR */
+
+.icono-nav{
+
+    width: 22px;
+
+    height: 22px;
+
+    object-fit: contain;
+}
+
 /* ===== LOGO ===== */
 
 .logo {
@@ -309,6 +340,122 @@ button {
 /* MOSTRAR MENU */
 
 .dropdown:hover .dropdown-content {
+
+    display: block;
+}
+/* =========================
+   PERFIL
+========================= */
+
+.perfil{
+
+    position: relative;
+}
+
+.perfil-btn{
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 50%;
+
+    border: 2px solid #8b5a2b;
+
+    background: white;
+
+    color: #8b5a2b;
+
+    font-weight: bold;
+
+    font-size: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.perfil-btn:hover{
+
+    background: #f3e3d3;
+
+    transform: scale(1.05);
+}
+/* =========================
+   NOTIFICACIONES
+========================= */
+
+.notificaciones{
+
+    position: relative;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.notificaciones:hover{
+
+    transform: scale(1.1);
+}
+/* =========================
+   DROPDOWN PERFIL
+========================= */
+
+.perfil-dropdown{
+
+    display: none;
+
+    position: absolute;
+
+    right: 0;
+
+    top: 60px;
+
+    background: rgba(255,255,255,0.15);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 15px;
+
+    min-width: 220px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+    z-index: 9999;
+}
+
+.perfil-dropdown a{
+
+    display: block;
+
+    padding: 14px;
+
+    text-decoration: none;
+
+    color: white;
+
+    transition: 0.3s;
+}
+
+.perfil-dropdown a:hover{
+
+    background: rgba(255,255,255,0.2);
+}
+
+.perfil:hover .perfil-dropdown{
 
     display: block;
 }

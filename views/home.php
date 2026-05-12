@@ -14,106 +14,11 @@ session_start();
 </head>
 
 <body>
+<?php include 'views/layouts/navbar.php'; ?>
 
-    <div class="navbar">
-        <button class="btn-menu" onclick="abrirPanel()">
-            ☰
-        </button>
+<?php include 'views/layouts/sidebar.php'; ?>
 
-        <div>
-            <img src="public/assets/img/logo.png" class="logo">
-        </div>
-
-        <div class="buscador-2">
-<div class="dropdown">
-
-    <button class="dropbtn">
-        Todos los productos ▼
-    </button>
-
-    <div class="dropdown-content">
-
-        <a href="?menu=pasteles">
-            Pasteles
-        </a>
-
-        <a href="?menu=eventos">
-            Pasteles para eventos
-        </a>
-
-        <a href="?menu=galletas">
-            Galletas
-        </a>
-
-        <a href="?menu=panaderia">
-            Panadería
-        </a>
-
-    </div>
-
-</div>
-            <div class="separador"></div>
-            <input type="text" placeholder="Buscar...">
-            <button class="btn-buscar">🔍</button>
-
-        </div>
-        <div class="acciones">
-            <a href="?menu=login">
-                <button class="btn-login">Iniciar sesión</button>
-            </a>
-
-            <a href="?menu=registro">
-                <button class="btn-crear">Crear cuenta</button>
-            </a>
-        </div>
-    </div>
-
-    <div id="sidebar" class="sidebar">
-
-        <button class="cerrar" onclick="cerrarPanel()">
-            ✖
-        </button>
-
-        <h2>Menu</Menu>
-        </h2>   
-
-<ul>
-
-    <li>
-        <a href="?menu=home">Dashboard</a>
-    </li>
-
-    <li>
-        <a href="?menu=productoscliente">Productos</a>
-    </li>
-
-<?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
-        <li>
-            <a href="?menu=usuarios">Usuarios</a>
-        </li>
-
-        <li>
-            <a href="?menu=inventario">Inventario</a>
-        </li>
-
-        <li>
-            <a href="?menu=ventas">Ventas</a>
-        </li>
-
-        <li>
-            <a href="?menu=reportes">Reportes</a>
-        </li>
-
-        <li>
-            <a href="?menu=configuracion">Configuración</a>
-        </li>
-
-    <?php endif; ?>
-
-</ul>
-
-    </div>
-
+    
     <div class="hero">
         <h1 class="titulo-principal">Productos</h1>
     </div>
