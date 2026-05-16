@@ -436,6 +436,30 @@ button {
 
     z-index: 9999;
 }
+.notificacion-dropdown{
+
+    display: none;
+
+    position: absolute;
+
+    right: 0;
+
+    top: 60px;
+
+    background: rgba(255,255,255,0.15);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 15px;
+
+    min-width: 220px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+    z-index: 9999;
+}
 
 .perfil-dropdown a{
 

@@ -10,6 +10,7 @@ session_start();
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/styles.css">
     <link rel="stylesheet" href="public/assets/css/sidebar.css">
+    <link rel="icon" href="public/assets/img/logo.png" type="image/png">
 
 </head>
 

@@ -6,6 +6,8 @@
     <title>Registro</title>
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/auth.css">
+        <link rel="icon" href="public/assets/img/logo.png" type="image/png">
+
 </head>
 
 <body>

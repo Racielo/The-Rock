@@ -9,7 +9,7 @@ $rol = $_SESSION['rol'] ?? null;
     <div class="navbar-left">
 
         <button class="btn-menu" onclick="abrirPanel()">
-            ☰
+            <img src="public/assets/img/panel.png" alt="icono-panel" width="20px">
         </button>
 
         <div>
@@ -64,71 +64,71 @@ $rol = $_SESSION['rol'] ?? null;
     </div>
 
     <!-- DERECHA -->
-<div class="navbar-right">
+    <div class="navbar-right">
 
-    <!-- NOTIFICACIONES -->
-    <div class="notificaciones">
+        <!-- NOTIFICACIONES 
+     <div class="notificaciones">
         <img src="public/assets/img/notificacion.png" class="icono-nav">
     </div>
+        -->
+        <!-- PERFIL -->
+        <div class="perfil">
 
-    <!-- PERFIL -->
-    <div class="perfil">
+            <?php if ($usuario): ?>
 
-        <?php if($usuario): ?>
+                <div class="perfil-btn">
 
-            <div class="perfil-btn">
+                    <?= strtoupper(substr($usuario, 0, 1)) ?>
 
-                <?= strtoupper(substr($usuario, 0, 1)) ?>
+                </div>
 
-            </div>
+                <div class="perfil-dropdown">
 
-            <div class="perfil-dropdown">
+                    <a href="#">
+                        <img src="public/assets/img/usuario.png" class="icono-nav"> <?= $usuario ?>
+                    </a>
 
-                <a href="#">
-                    <img src="public/assets/img/usuario.png" class="icono-nav"> <?= $usuario ?>
-                </a>
+                    <a href="#">
+                        Rol: <?= $rol ?>
+                    </a>
 
-                <a href="#">
-                    Rol: <?= $rol ?>
-                </a>
+                    <a href="#">
+                        <img src="public/assets/img/proteccion-del-amor.png" class="icono-nav"> Favoritos
+                    </a>
 
-                <a href="#">
-                    <img src="public/assets/img/proteccion-del-amor.png" class="icono-nav"> Favoritos
-                </a>
+                    <a href="#">
+                        <img src="public/assets/img/big-gear.png" class="icono-nav">Configuración
+                    </a>
 
-                <a href="#">
-                    <img src="public/assets/img/big-gear.png" class="icono-nav">Configuración
-                </a>
+                    <a href="?menu=logout">
+                        <img src="public/assets/img/cerrar-sesion-de-usuario.png" class="icono-nav"> Cerrar sesión
 
-                <a href="?menu=logout">
-                    <img src="public/assets/img/cerrar-sesion-de-usuario.png" class="icono-nav"> Cerrar sesión
-                    
-                </a>
+                    </a>
 
-            </div>
+                </div>
 
-        <?php else: ?>
+            <?php else: ?>
 
-            <div class="perfil-btn">
-                <img src="public/assets/img/agregar-usuario.png" class="icono-nav">
-            </div>
+                <div class="perfil-btn">
+                    <img src="public/assets/img/agregar-usuario.png" class="icono-nav">
+                </div>
 
-            <div class="perfil-dropdown">
+                <div class="perfil-dropdown">
 
-                <a href="?menu=login">
-                    Iniciar sesión
-                </a>
+                    <a href="?menu=login">
+                        Iniciar sesión
+                    </a>
 
-                <a href="?menu=registro">
-                    Crear cuenta
-                </a>
+                    <a href="?menu=registro">
+                        Crear cuenta
+                    </a>
 
-            </div>
+                </div>
 
-        <?php endif; ?>
+            <?php endif; ?>
+
+        </div>
 
     </div>
-
-</div>
 
 </div>

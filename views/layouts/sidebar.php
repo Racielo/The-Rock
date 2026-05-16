@@ -1,7 +1,8 @@
 <div id="sidebar" class="sidebar">
 
         <button class="cerrar" onclick="cerrarPanel()">
-            ✖
+                        <img src="public/assets/img/equis.png" alt="opcion-salir" width="20px">
+
         </button>
 
         <h2>Menu</Menu>

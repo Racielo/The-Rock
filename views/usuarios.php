@@ -1,55 +1,53 @@
 <!DOCTYPE html>
-<html lang = "es">
+<html lang="es">
 
 <head>
 
-    <meta charset = "UTF-8">
+    <meta charset="UTF-8">
 
     <title>Usuarios</title>
 
-    <link rel = "stylesheet" href="public/assets/css/fondo.css">
-    <link rel = "stylesheet" href="public/assets/css/usuarios.css">
-    <link rel = "stylesheet" href="public/assets/css/sidebar.css">
+    <link rel="stylesheet" href="public/assets/css/fondo.css">
+    <link rel="stylesheet" href="public/assets/css/usuarios.css">
+    <link rel="stylesheet" href="public/assets/css/styles.css">
+
+    <link rel="stylesheet" href="public/assets/css/sidebar.css">
+    <link rel="icon" href="public/assets/img/logo.png" type="image/png">
+
 
 </head>
 
 <body>
-
-    <!-- BOTON MENU -->
-    <button class = "btn-menu" onclick="abrirPanel()">
-        ☰
-    </button>
-
-    <!-- SIDEBAR -->
-<?php include 'views/layouts/sidebar.php'; ?>
+    <?php include 'views/layouts/navbar.php'; ?>
+    <?php include 'views/layouts/sidebar.php'; ?>
 
     <!-- CONTENIDO -->
-    <div class = "container">
+    <div class="container">
 
-        <div class = "card">
+        <div class="card">
 
             <h1>Usuarios</h1>
 
             <!-- BOTON AGREGAR -->
-            <button class   = "btn-agregar"
-                    onclick = "abrirModal()">
+            <button class="btn-agregar"
+                onclick="abrirModal()">
 
                 + Agregar Usuario
 
             </button>
 
             <!-- BUSCADOR -->
-            <div class = "buscador">
+            <div class="buscador">
 
-                <input type        = "text"
-                       id          = "buscarUsuario"
-                       placeholder = "Buscar por ID, nombre o correo..."
-                       onkeyup     = "buscarUsuarios()">
+                <input type="text"
+                    id="buscarUsuario"
+                    placeholder="Buscar por ID, nombre o correo"
+                    onkeyup="buscarUsuarios()">
 
             </div>
 
             <!-- TABLA -->
-            <table id = "tablaUsuarios">
+            <table id="tablaUsuarios">
 
                 <thead>
 
@@ -84,7 +82,7 @@
                                 <td>
 
                                     <!-- EDITAR -->
-                                    <button onclick = "abrirEditar(
+                                    <button onclick="abrirEditar(
                                         '<?= $user['id']; ?>',
                                         '<?= $user['nombre'] ?>',
                                         '<?= $user['correo'] ?>',
@@ -96,8 +94,8 @@
                                     </button>
 
                                     <!-- ELIMINAR -->
-                                    <a href    = "?menu=borrar&id=<?= $user['id'] ?>"
-                                       onclick = "return confirm('¿Eliminar usuario?')">
+                                    <a href="?menu=borrar&id=<?= $user['id'] ?>"
+                                        onclick="return confirm('¿Eliminar usuario?')">
 
                                         <button>
                                             Eliminar
@@ -115,7 +113,7 @@
 
                         <tr>
 
-                            <td colspan = "5">
+                            <td colspan="5">
                                 No hay usuarios registrados
                             </td>
 
@@ -132,12 +130,12 @@
     </div>
 
     <!-- MODAL AGREGAR -->
-    <div id = "modalUsuario" class="modal">
+    <div id="modalUsuario" class="modal">
 
-        <div class = "modal-contenido">
+        <div class="modal-contenido">
 
-            <span class   = "cerrar-modal"
-                  onclick = "cerrarModal()">
+            <span class="cerrar-modal"
+                onclick="cerrarModal()">
 
                 &times;
 
@@ -145,25 +143,25 @@
 
             <h2>Agregar Usuario</h2>
 
-            <form method = "POST"
-                  action = "?menu=crear">
+            <form method="POST"
+                action="?menu=crear">
 
-                <input type        = "text"
-                       name        = "nombre"
-                       placeholder = "Nombre"
-                       required>
+                <input type="text"
+                    name="nombre"
+                    placeholder="Nombre"
+                    required>
 
-                <input type        = "email"
-                       name        = "correo"
-                       placeholder = "Correo"
-                       required>
+                <input type="email"
+                    name="correo"
+                    placeholder="Correo"
+                    required>
 
-                <input type        = "password"
-                       name        = "pass"
-                       placeholder = "Contraseña"
-                       required>
+                <input type="password"
+                    name="pass"
+                    placeholder="Contraseña"
+                    required>
 
-                <button type = "submit">
+                <button type="submit">
                     Guardar
                 </button>
 
@@ -174,12 +172,12 @@
     </div>
 
     <!-- MODAL EDITAR -->
-    <div id = "modalEditar" class="modal">
+    <div id="modalEditar" class="modal">
 
-        <div class = "modal-contenido">
+        <div class="modal-contenido">
 
-            <span class   = "cerrar-modal"
-                  onclick = "cerrarEditar()">
+            <span class="cerrar-modal"
+                onclick="cerrarEditar()">
 
                 &times;
 
@@ -187,33 +185,33 @@
 
             <h2>Editar Usuario</h2>
 
-            <form method = "POST"
-                  id     = "formEditar">
+            <form method="POST"
+                id="formEditar">
 
-                <input type = "text"
-                       name = "nombre"
-                       id   = "editNombre"
-                       required>
+                <input type="text"
+                    name="nombre"
+                    id="editNombre"
+                    required>
 
-                <input type = "email"
-                       name = "email"
-                       id   = "editCorreo"
-                       required>
+                <input type="email"
+                    name="email"
+                    id="editCorreo"
+                    required>
 
-                <select name = "estado"
-                        id   = "editEstado">
+                <select name="estado"
+                    id="editEstado">
 
-                    <option value = "Activo">
+                    <option value="Activo">
                         Activo
                     </option>
 
-                    <option value = "Inactivo">
+                    <option value="Inactivo">
                         Inactivo
                     </option>
 
                 </select>
 
-                <button type = "submit">
+                <button type="submit">
                     Guardar Cambios
                 </button>
 
@@ -224,7 +222,7 @@
     </div>
 
     <!-- JS SIDEBAR -->
-    <script src = "public/assets/js/sidebar.js"></script>
+    <script src="public/assets/js/sidebar.js"></script>
     <script src="public/assets/js/usuarios.js"></script>
 </body>
 

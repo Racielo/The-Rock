@@ -6,6 +6,8 @@
     <title>Login</title>
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/auth.css">
+    <link rel="icon" href="public/assets/img/logo.png" type="image/png">
+
 </head>
 
 <body>
@@ -22,6 +24,7 @@
                 <form action="?menu=verificar" method="POST">
 
                     <div class="input-group">
+                        <img src="public/assets/img/correo.png" alt="icono-log" width="20px">
                         <input type="text" id="correo" name="correo" placeholder="Correo">
                         <div id="errorCorreo" class="error-text"></div>
                     </div>
@@ -36,8 +39,11 @@
 
                     <p>
                         ¿No tienes cuenta?
-                        <a href="public/?controller=auth&action=registro">Regístrate</a>
+                        <a href="?menu=registro">Regístrate</a> o
+                        <br>
+                        <a href="?menu=restablecer-contraseña">¿Olvidaste tu contraseña?</a>
                     </p>
+
                 </form>
 
             </div>
