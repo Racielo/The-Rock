@@ -21,7 +21,7 @@ public function verificar() {
 
     $usuario = $this->modelo->verificar($correo, $pass);
 
-    if ($usuario) {
+    if ($usuario && $usuario['estado'] == 'Activo') {
 
         session_start();
 
@@ -37,7 +37,7 @@ public function verificar() {
     }
 
     exit;
-}
+}   
 
 public function crear(): void {
 
@@ -47,7 +47,9 @@ public function crear(): void {
         $correo = $_POST['correo'] ?? '';
         $pass = $_POST['pass'] ?? '';
 
+        $rol = "usuario";
         $estado = "Activo";
+
 
         if (!empty($nombre) &&
             filter_var($correo, FILTER_VALIDATE_EMAIL)) {
@@ -56,6 +58,7 @@ public function crear(): void {
                 $nombre,
                 $correo,
                 $pass,
+                $rol,
                 $estado
             );
         }

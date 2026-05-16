@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once 'config/database.php';
 require_once 'controllers/UsuarioController.php';
 require_once 'controllers/ProductoController.php';
@@ -22,9 +24,14 @@ if ($menu == 'login') {
 
 } elseif ($menu == 'usuarios') {
 
+    if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
+
+        header("Location: ?menu=home");
+        exit;
+    }
+
     $usuarios = new UsuarioController($conexion);
     $usuarios->index();
-
 } elseif ($menu == 'verificar') {
 
     $usuarios = new UsuarioController($conexion);
@@ -61,9 +68,14 @@ elseif ($menu == 'logout') {
 ========================= */
 elseif ($menu == 'productos') {
 
+    if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
+
+        header("Location: ?menu=home");
+        exit;
+    }
+
     $productos = new ProductoController($conexion);
     $productos->index();
-
 } elseif ($menu == 'crearProducto') {
 
     $productos = new ProductoController($conexion);

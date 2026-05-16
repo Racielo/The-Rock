@@ -1,0 +1,234 @@
+/* =========================
+   SHOWCASE PRINCIPAL
+========================= */
+
+.slider-showcase{
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 30px;
+
+    padding: 20px;
+
+    flex-wrap: wrap;
+}
+
+/* =========================
+   TARJETAS
+========================= */
+
+.showcase-card{
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+
+    transition: 0.3s ease;
+}
+
+.showcase-card:hover{
+
+    transform: scale(1.02);
+}
+
+/* IMAGEN */
+
+.showcase-card img{
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+/* =========================
+   TAMAÑOS
+========================= */
+
+.small{
+
+    width: 300px;
+
+    height: 250px;
+}
+
+.large{
+
+    width: 520px;
+
+    height: 320px;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay{
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: end;
+
+    align-items: center;
+
+    padding-bottom: 20px;
+
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.55),
+        transparent
+    );
+}
+
+/* CENTRO */
+
+.overlay.center{
+
+    justify-content: center;
+
+    padding-bottom: 0;
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.overlay h1{
+
+    color: white;
+
+    font-size: 60px;
+
+    margin-bottom: 20px;
+
+    text-shadow: 0 5px 10px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.overlay button{
+
+    background: rgba(68,41,25,0.9);
+
+    color: white;
+
+    border: none;
+
+    border-radius: 25px;
+
+    padding: 12px 20px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.overlay button:hover{
+
+    background: #5c3721;
+}
+
+/* =========================
+   SECCIONES
+========================= */
+
+.seccion-productos{
+
+    padding: 60px 40px;
+}
+
+.seccion-productos h2{
+
+    color: white;
+
+    font-size: 40px;
+
+    margin-bottom: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+    .slider-showcase{
+
+        flex-direction: column;
+    }
+
+    .large{
+
+        width: 90%;
+    }
+
+    .small{
+
+        width: 90%;
+    }
+}
+
+
+/* DIFERENTES TIEMPOS */
+
+.small{
+
+    width: 280px;
+
+    height: 220px;
+
+    opacity: 0.7;
+
+    transition: all 0.8s ease;
+}
+
+.large{
+
+    width: 520px;
+
+    height: 340px;
+
+    transform: scale(1.03);
+
+    z-index: 10;
+
+    transition: all 0.8s ease;
+}
+/* =========================
+   ANIMACION SLIDER
+========================= */
+
+.showcase-card{
+
+    transition:
+    transform 0.8s ease,
+    opacity 0.8s ease;
+}
+html {
+
+    scroll-behavior: smooth;
+}
+
+.seccion-productos {
+
+    scroll-margin-top: 120px;
+}

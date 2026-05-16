@@ -17,11 +17,11 @@ class UsuarioModel {
                     ->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function guardar($nombre, $correo, $pass, $estado) {
+    public function guardar($nombre, $correo, $pass, $rol, $estado) {
 
         $sql = "INSERT INTO usuarios
-                (nombre, correo, pass, estado)
-                VALUES (?, ?, ?, ?)";
+                (nombre, correo, pass, rol, estado)
+                VALUES (?, ?, ?, ?, ?)";
 
         $stmt = $this->db->prepare($sql);
 
@@ -29,6 +29,7 @@ class UsuarioModel {
             trim($nombre),
             trim($correo),
             trim($pass),
+            trim($rol),
             trim($estado)
         ]);
     }

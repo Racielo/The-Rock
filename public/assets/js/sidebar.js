@@ -1,9 +1,19 @@
 function abrirPanel() {
-    document.getElementById("sidebar").classList.add("activo");
+
+    document.getElementById("sidebar")
+            .classList.add("activo");
+
+    document.getElementById("overlay")
+            .classList.add("activo");
 }
 
 function cerrarPanel() {
-    document.getElementById("sidebar").classList.remove("activo");
+
+    document.getElementById("sidebar")
+            .classList.remove("activo");
+
+    document.getElementById("overlay")
+            .classList.remove("activo");
 }
 function abrirModal(){
     document.getElementById("modalUsuario")

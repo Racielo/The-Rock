@@ -1,48 +1,98 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <div id="sidebar" class="sidebar">
 
-        <button class="cerrar" onclick="cerrarPanel()">
-                        <img src="public/assets/img/equis.png" alt="opcion-salir" width="20px">
+    <button class="cerrar" onclick="cerrarPanel()">
 
-        </button>
+        <img src="public/assets/img/equis.png"
+             width="20px">
 
-        <h2>Menu</Menu>
-        </h2>   
+    </button>
 
-<ul>
+    <h2>Menú</h2>
 
-    <li>
-        <a href="?menu=home">inicio</a>
-    </li>
+    <ul>
 
-    <li>
-        <a href="?menu=productoscliente">Productos</a>
-    </li>
+        <?php if(isset($_SESSION['rol'])): ?>
 
-<?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
-        <li>
-        <a href="?menu=home">inicio</a>
-        </li>    
-        <li>
-            <a href="?menu=usuarios">Usuarios</a>
-        </li>
-            <li>
-        <a href="?menu=productos">Productos</a>
-    </li>
+            <!-- USUARIO -->
 
-        <li>
-            <a href="?menu=inventario">Inventario</a>
-        </li>
+            <?php if($_SESSION['rol'] == 'usuario'): ?>
 
-        <li>
-            <a href="?menu=ventas">Ventas</a>
-        </li>
+                <li>
+                    <a href="?menu=home">
+                        Inicio
+                    </a>
+                </li>
 
-        <li>
-            <a href="?menu=configuracion">Configuración</a>
-        </li>
+                <li>
+                    <a href="?menu=productoscliente">
+                        Productos
+                    </a>
+                </li>
 
-    <?php endif; ?>
+                <li>
+                    <a href="?menu=favoritos">
+                        Favoritos
+                    </a>
+                </li>
 
-</ul>
+                <li>
+                    <a href="?menu=pedidos">
+                        Mis pedidos
+                    </a>
+                </li>
 
-    </div>
+            <?php endif; ?>
+
+
+            <!-- ADMIN -->
+
+            <?php if($_SESSION['rol'] == 'admin'): ?>
+
+                <li>
+                    <a href="?menu=home">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="?menu=usuarios">
+                        Usuarios
+                    </a>
+                </li>
+
+                <li>
+                    <a href="?menu=productos">
+                        Administrar productos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="?menu=inventario">
+                        Inventario
+                    </a>
+                </li>
+
+                <li>
+                    <a href="?menu=ventas">
+                        Ventas
+                    </a>
+                </li>
+
+            <?php endif; ?>
+
+        <?php endif; ?>
+
+    </ul>
+
+</div>
+
+<div id="overlay"
+     class="overlay"
+     onclick="cerrarPanel()">
+</div>

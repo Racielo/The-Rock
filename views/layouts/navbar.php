@@ -29,25 +29,25 @@ $rol = $_SESSION['rol'] ?? null;
                     Todos los productos ▼
                 </button>
 
-                <div class="dropdown-content">
+<div class="dropdown-content">
 
-                    <a href="?menu=pasteles">
-                        Pasteles
-                    </a>
+    <a onclick="irASeccion('pasteles')">
+        Pasteles
+    </a>
 
-                    <a href="?menu=eventos">
-                        Pasteles para eventos
-                    </a>
+    <a onclick="irASeccion('eventos')">
+        Pasteles para eventos
+    </a>
 
-                    <a href="?menu=galletas">
-                        Galletas
-                    </a>
+    <a onclick="irASeccion('galletas')">
+        Galletas
+    </a>
 
-                    <a href="?menu=panaderia">
-                        Panadería
-                    </a>
+    <a onclick="irASeccion('panaderia')">
+        Panadería
+    </a>
 
-                </div>
+</div>
 
             </div>
 
