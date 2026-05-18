@@ -4,6 +4,7 @@ session_start();
 require_once 'config/database.php';
 require_once 'controllers/UsuarioController.php';
 require_once 'controllers/ProductoController.php';
+require_once 'controllers/InventarioController.php';
 
 $menu = $_GET['menu'] ?? 'home';
 
@@ -62,7 +63,6 @@ elseif ($menu == 'logout') {
 
     exit;}
      
-
 /* =========================
    PRODUCTOS
 ========================= */
@@ -91,7 +91,43 @@ elseif ($menu == 'productos') {
     $productos = new ProductoController($conexion);
     $productos->editar($_GET['id']);
 
-} 
+}/* =========================
+   INVENTARIO
+========================= */
+
+elseif ($menu == 'inventario') {
+
+    if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
+
+        header("Location: ?menu=home");
+        exit;
+    }
+
+    $inventario = new InventarioController($conexion);
+
+    $inventario->index();
+}
+
+elseif ($menu == 'crearInventario') {
+
+    $inventario = new InventarioController($conexion);
+
+    $inventario->crear();
+}
+
+elseif ($menu == 'borrarInventario') {
+
+    $inventario = new InventarioController($conexion);
+
+    $inventario->borrar($_GET['id']);
+}
+
+elseif ($menu == 'editarInventario') {
+
+    $inventario = new InventarioController($conexion);
+
+    $inventario->editar($_GET['id']);
+}
 else {
 
     include 'views/home.php';

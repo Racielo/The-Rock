@@ -8,9 +8,11 @@ $rol = $_SESSION['rol'] ?? null;
     <!-- IZQUIERDA -->
     <div class="navbar-left">
 
-        <button class="btn-menu" onclick="abrirPanel()">
-            <img src="public/assets/img/panel.png" alt="icono-panel" width="20px">
-        </button>
+        <?php if (!empty($_SESSION['rol'])): ?>
+            <button class="btn-menu" onclick="abrirPanel()">
+                <img src="public/assets/img/panel.png" alt="icono-panel" width="20px">
+            </button>
+        <?php endif; ?>
 
         <div>
             <img src="public/assets/img/logo.png" class="logo">
@@ -29,25 +31,25 @@ $rol = $_SESSION['rol'] ?? null;
                     Todos los productos ▼
                 </button>
 
-<div class="dropdown-content">
+                <div class="dropdown-content">
 
-    <a onclick="irASeccion('pasteles')">
-        Pasteles
-    </a>
+                    <a onclick="irASeccion('pasteles')">
+                        Pasteles
+                    </a>
 
-    <a onclick="irASeccion('eventos')">
-        Pasteles para eventos
-    </a>
+                    <a onclick="irASeccion('eventos')">
+                        Pasteles para eventos
+                    </a>
 
-    <a onclick="irASeccion('galletas')">
-        Galletas
-    </a>
+                    <a onclick="irASeccion('galletas')">
+                        Galletas
+                    </a>
 
-    <a onclick="irASeccion('panaderia')">
-        Panadería
-    </a>
+                    <a onclick="irASeccion('panaderia')">
+                        Panadería
+                    </a>
 
-</div>
+                </div>
 
             </div>
 
