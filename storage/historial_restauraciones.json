@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "archivo": "backup_therock_2026-05-19_09-45-33.sql",
+        "usuario": "Jose Luis Cruz",
+        "fecha": "19\/05\/2026",
+        "hora": "10:03:42",
+        "dia": "19",
+        "mes": "05",
+        "anio": "2026",
+        "timestamp": 1779185022
+    }
+]

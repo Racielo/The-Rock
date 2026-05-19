@@ -1,38 +1,104 @@
-<?php if (!empty($_SESSION['rol'])): ?>
+<div id="sidebar" class="sidebar">
 
-    <!-- SIDEBAR -->
-    <div id="sidebar" class="sidebar">
+    <button class="cerrar" onclick="cerrarPanel()">
 
-        <button class="cerrar" onclick="cerrarPanel()">
-            <img src="public/assets/img/equis.png" width="20px">
-        </button>
+        <img src="public/assets/img/equis.png"
+             alt="cerrar"
+             width="20px">
 
-        <h2>Menú</h2>
+    </button>
 
-        <ul>
+    <h2>Menú</h2>
 
-            <?php if ($_SESSION['rol'] == 'usuario'): ?>
+    <ul>
 
-                <li><a href="?menu=home">Inicio</a></li>
-                <li><a href="?menu=productoscliente">Productos</a></li>
-                <li><a href="?menu=favoritos">Favoritos</a></li>
-                <li><a href="?menu=pedidos">Mis pedidos</a></li>
+        <!-- =========================
+             USUARIO NORMAL
+        ========================== -->
 
-            <?php elseif ($_SESSION['rol'] == 'admin'): ?>
+        <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'usuario'): ?>
 
-                <li><a href="?menu=inventario">inventario</a></li>
-                <li><a href="?menu=usuarios">Usuarios</a></li>
-                <li><a href="?menu=productos">Administrar productos</a></li>
-                <li><a href="?menu=inventario">Inventario</a></li>
-                <li><a href="?menu=ventas">Ventas</a></li>
+            <li>
+                <a href="?menu=home">
+                    <img src="public/assets/img/hogar.png" alt="icono-home" width="20px">
+                    inicio
+                </a>
+            </li>
 
-            <?php endif; ?>
+            <li>
+                <a href="?menu=productos">
+                    <img src="public/assets/img/pastelito.png" alt="icono-producto" width="20px">
+                    productoa
+                </a>
+            </li>
 
-        </ul>
+            <li>
+                <a href="?menu=favoritos">
+                    <img src="public/assets/img/carrito.png" alt="icono-carrito" width="20px">
+                    carrito
+                </a>
+            </li>
 
-    </div>
+            <li>
+                <a href="?menu=pedidos">
+                    <img src="public/assets/img/bolsacompra.png" alt="icono-pediycompr" width="20px">
+                    Pedidos y compras
+                                
+                </a>
+            </li>
 
-    <!-- OVERLAY -->
-    <div id="overlay" class="overlay" onclick="cerrarPanel()"></div>
+        <?php endif; ?>
 
-<?php endif; ?>
+
+        <!-- =========================
+             ADMIN
+        ========================== -->
+
+        <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
+
+            <li>
+                <a href="?menu=home">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="?menu=usuarios">
+                    👥 Usuarios
+                </a>
+            </li>
+
+            <li>
+                <a href="?menu=productos">
+                    🧁 Administrar productos
+                </a>
+            </li>
+
+            <li>
+                <a href="?menu=inventario">
+                    📦 Inventario
+                </a>
+            </li>
+
+            <li>
+                <a href="?menu=pedidosAdmin">
+                    🛒 Pedidos
+                </a>
+            </li>
+
+            <li>
+                <a href="?menu=ventas">
+                    📈 Ventas
+                </a>
+            </li>
+
+        <?php endif; ?>
+
+    </ul>
+
+</div>
+
+<div id="overlay"
+     class="overlay"
+     onclick="cerrarPanel()">
+</div>

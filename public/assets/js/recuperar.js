@@ -21,7 +21,6 @@ function recuperarContrasena() {
         return;
     }
 
-    /*
     fetch('?menu=enviar-recuperacion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -30,16 +29,13 @@ function recuperarContrasena() {
     .then(r => r.json())
     .then(data => {
         if (data.success) {
-            mostrarModal('', '¡Correo enviado!', data.mensaje);
+            mostrarModal('✅', '¡Listo!', data.mensaje);
+            correoInput.value = '';
         } else {
-            mostrarModal('', 'Error', data.mensaje);
+            mostrarModal('❌', 'Error', data.mensaje);
         }
     })
-    .catch(() => mostrarModal('', 'Error de red', 'No se pudo conectar con el servidor.'));
-    */
-
-    mostrarModal('', '¡Correo enviado!', `Revisa tu bandeja de entrada en ${correo}.`);
-    correoInput.value = '';
+    .catch(() => mostrarModal('⚠️', 'Error de red', 'No se pudo conectar con el servidor.'));
 }
 
 function mostrarModal(icono, titulo, mensaje) {

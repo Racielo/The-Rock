@@ -68,11 +68,6 @@ $rol = $_SESSION['rol'] ?? null;
     <!-- DERECHA -->
     <div class="navbar-right">
 
-        <!-- NOTIFICACIONES 
-     <div class="notificaciones">
-        <img src="public/assets/img/notificacion.png" class="icono-nav">
-    </div>
-        -->
         <!-- PERFIL -->
         <div class="perfil" id="perfilMenu">
 
@@ -99,6 +94,7 @@ $rol = $_SESSION['rol'] ?? null;
                     </a>
 
                     <div id="submenuConfig" style="display:none; background:rgba(0,0,0,0.15); padding:4px 0;">
+
                         <?php if ($rol === 'admin'): ?>
                         <a href="?menu=exportar-bd" style="padding-left:28px; font-size:13px;">
                             &#11015; Descargar base de datos
@@ -107,6 +103,11 @@ $rol = $_SESSION['rol'] ?? null;
                             &#11014; Restaurar base de datos
                         </a>
                         <?php endif; ?>
+
+                        <a href="?menu=configuracion" style="padding-left:28px; font-size:13px;">
+                            &#9881; Editar mi perfil
+                        </a>
+
                     </div>
 
                     <a href="?menu=logout">
