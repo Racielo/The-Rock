@@ -1,77 +1,76 @@
 <?php
 require_once 'models/UsuarioModel.php';
 
-class UsuarioController {
+class UsuarioController
+{
+
     private $modelo;
 
-    public function __construct($conexion) {
+    public function __construct($conexion)
+    {
         $this->modelo = new UsuarioModel($conexion);
     }
 
-    public function index(): void {
+    public function index(): void
+    {
         $usuarios = $this->modelo->listar();
         include 'views/usuarios.php';
     }
 
-public function verificar() {
+    public function verificar()
+    {
 
-    $correo = $_POST['correo'] ?? '';
-
-    $pass = $_POST['password'] ?? '';
-
-    $usuario = $this->modelo->verificar($correo, $pass);
-
-    if ($usuario && $usuario['estado'] == 'Activo') {
-
-        session_start();
-
-        $_SESSION['usuario'] = $usuario['nombre'];
-
-        $_SESSION['rol'] = $usuario['rol'];
-
-        $_SESSION['id'] = $usuario['id'];
-
-
-        header("Location: ?menu=home");
-
-    } else {
-
-        header("Location: ?menu=login");
-    }
-
-    exit;
-}   
-
-public function crear(): void {
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        $nombre = $_POST['nombre'] ?? '';
         $correo = $_POST['correo'] ?? '';
-        $pass = $_POST['pass'] ?? '';
+        $pass = $_POST['password'] ?? '';
 
-        $rol = "usuario";
-        $estado = "Activo";
+        $usuario = $this->modelo->verificar($correo, $pass);
 
+        if ($usuario && $usuario['estado'] == 'Activo') {
 
-        if (!empty($nombre) &&
-            filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            session_start();
 
-            $this->modelo->guardar(
-                $nombre,
-                $correo,
-                $pass,
-                $rol,
-                $estado
-            );
+            $_SESSION['usuario'] = $usuario['nombre'];
+            $_SESSION['rol'] = $usuario['rol'];
+            $_SESSION['id'] = $usuario['id'];
+
+            header("Location: ?menu=home");
+        } else {
+            header("Location: ?menu=login");
         }
 
-        header("Location: ?menu=usuarios");
         exit;
     }
-}
 
-    public function borrar($id): void {
+    public function crear(): void
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $nombre = $_POST['nombre'] ?? '';
+            $correo = $_POST['correo'] ?? '';
+            $pass = $_POST['pass'] ?? '';
+
+            $rol = "usuario";
+            $estado = "Activo";
+
+            if (!empty($nombre) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+
+                $this->modelo->guardar(
+                    $nombre,
+                    $correo,
+                    $pass,
+                    $rol,
+                    $estado
+                );
+            }
+
+            header("Location: ?menu=usuarios");
+            exit;
+        }
+    }
+
+    public function borrar($id): void
+    {
         if ($id) {
             $this->modelo->eliminar($id);
         }
@@ -80,30 +79,74 @@ public function crear(): void {
         exit;
     }
 
-public function editar(int $id): void {
+    public function editar(int $id): void
+    {
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nombre = $_POST['nombre'] ?? '';
-        $correo = $_POST['email'] ?? '';
-        $estado = $_POST['estado'] ?? '';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        if (!empty($nombre) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            $this->modelo->actualizar($id, $nombre, $correo, $estado);
+            $nombre = $_POST['nombre'] ?? '';
+            $correo = $_POST['correo'] ?? '';
+            $estado = $_POST['estado'] ?? '';
+
+            if (!empty($nombre) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+                $this->modelo->actualizar($id, $nombre, $correo, $estado);
+            }
+
+            header("Location: ?menu=usuarios");
+            exit;
         }
 
-        header("Location: ?menu=usuarios");
+        $usuario = $this->modelo->obtenerPorId($id);
+
+        if (!$usuario) {
+            echo "Usuario no encontrado";
+            exit;
+        }
+
+        include 'views/editUsuario.php';
+    }
+public function registrar()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $nombre = trim($_POST['nombre'] ?? '');
+        $correo = trim($_POST['correo'] ?? '');
+        $pass   = $_POST['password'] ?? '';
+
+        if ($nombre == '' || $correo == '' || $pass == '') {
+            echo json_encode([
+                "success" => false,
+                "message" => "Campos vacíos"
+            ]);
+            exit;
+        }
+
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Correo inválido"
+            ]);
+            exit;
+        }
+
+        $existe = $this->modelo->verificarCorreo($correo);
+
+        if ($existe) {
+            echo json_encode([
+                "success" => false,
+                "message" => "El correo ya existe"
+            ]);
+            exit;
+        }
+
+        $resultado = $this->modelo->guardar($nombre, $correo, $pass, 'usuario', 'Activo');
+
+        echo json_encode([
+            "success" => $resultado,
+            "message" => $resultado ? "Registro exitoso" : "Error al registrar"
+        ]);
+
         exit;
     }
-
-    // 🔥 ESTA PARTE ES LA QUE TE FALTA
-    $usuario = $this->modelo->obtenerPorId($id);
-
-    if (!$usuario) {
-        echo "Usuario no encontrado";
-        exit;
-    }   
-
-    include 'views/editUsuario.php';
 }
 }
-?>

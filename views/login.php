@@ -24,18 +24,18 @@
                 <form action="?menu=verificar" method="POST">
 
                     <div class="input-group">
-                        <img src="public/assets/img/correo.png" alt="icono-log" width="20px">
+                        <img src="public/assets/img/correo.png" class="icono-input">
                         <input type="text" id="correo" name="correo" placeholder="Correo">
                         <div id="errorCorreo" class="error-text"></div>
                     </div>
 
                     <div class="input-group">
+                        <img src="public/assets/img/bloquear.png" class="icono-input">
                         <input type="password" id="password" name="password" placeholder="Contraseña">
                         <div id="errorPassword" class="error-text"></div>
                     </div>
 
-
-                    <button type="submit">Entrar</button>
+                    <button onclick="login()">Entrar</button>
 
                     <p>
                         ¿No tienes cuenta?

@@ -46,17 +46,34 @@
 
 /* INPUTS */
 .input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 12px;
-    
+    position: relative;
+    margin-bottom: 15px;
 }
 
+/* ICONO DENTRO DEL INPUT */
+.icono-input {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+}
+
+/* INPUT CON ESPACIO PARA ICONO */
 input {
-    padding: 12px;
+    width: 100%;
+    padding: 12px 12px 12px 45px;
     border-radius: 20px;
     border: 2px solid transparent;
     outline: none;
+    transition: 0.3s;
+}
+
+/* cuando hay error */
+.error {
+    border: 2px solid red;
 }
 
 /* ERRORES */
@@ -102,4 +119,16 @@ button {
 .icono {
     font-size: 40px;
     margin-bottom: 10px;
+}
+.error {
+    border: 2px solid red !important;
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }

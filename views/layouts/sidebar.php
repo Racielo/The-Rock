@@ -19,16 +19,9 @@
         <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'usuario'): ?>
 
             <li>
-                <a href="?menu=home">
-                    <img src="public/assets/img/hogar.png" alt="icono-home" width="20px">
-                    inicio
-                </a>
-            </li>
-
-            <li>
                 <a href="?menu=productos">
                     <img src="public/assets/img/pastelito.png" alt="icono-producto" width="20px">
-                    productoa
+                    Mis productos
                 </a>
             </li>
 
@@ -57,38 +50,30 @@
         <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
 
             <li>
-                <a href="?menu=home">
-                    🏠 Dashboard
+                <a href="?menu=usuarios">
+                    <img src="public/assets/img/pastelito.png" alt="icono-producto" width="20px">
+                    Usuarios
                 </a>
             </li>
 
-            <li>
-                <a href="?menu=usuarios">
-                    👥 Usuarios
-                </a>
-            </li>
 
             <li>
                 <a href="?menu=productos">
-                    🧁 Administrar productos
+                    <img src="public/assets/img/pastelito.png" alt="icono-producto" width="20px">
+                    Administrar Productos
                 </a>
             </li>
 
             <li>
                 <a href="?menu=inventario">
-                    📦 Inventario
+                    <img src="public/assets/img/pastelito.png" alt="icono-producto" width="20px">
+                    Inventario
                 </a>
             </li>
-
             <li>
-                <a href="?menu=pedidosAdmin">
-                    🛒 Pedidos
-                </a>
-            </li>
-
-            <li>
-                <a href="?menu=ventas">
-                    📈 Ventas
+                <a href="?menu=inventario">
+                    <img src="public/assets/img/pastelito.png" alt="icono-producto" width="20px">
+                    Ventas
                 </a>
             </li>
 

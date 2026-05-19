@@ -1,6 +1,18 @@
 <?php
 $usuario = $_SESSION['usuario'] ?? null;
 $rol = $_SESSION['rol'] ?? null;
+
+$menu = $_GET['menu'] ?? 'home';
+
+/* CRUD o páginas donde NO quieres el centro */
+$ocultarCentro = in_array($menu, [
+    'login',
+    'registro',
+    'usuarios',
+    'productos',
+    'inventario',
+    'configuracion'
+]);
 ?>
 
 <div class="navbar">
@@ -20,50 +32,41 @@ $rol = $_SESSION['rol'] ?? null;
 
     </div>
 
-    <!-- CENTRO -->
-    <div class="navbar-center">
+    <!-- CENTRO (OCULTO EN CRUDS) -->
+    <?php if (!$ocultarCentro): ?>
+        <div class="navbar-center">
 
-        <div class="buscador-2">
+            <div class="buscador-2">
 
-            <div class="dropdown">
+                <div class="dropdown">
 
-                <button class="dropbtn">
-                    Todos los productos ▼
-                </button>
+                    <button class="dropbtn">
+                        Todos los productos ▼
+                    </button>
 
-                <div class="dropdown-content">
+                    <div class="dropdown-content">
 
-                    <a onclick="irASeccion('pasteles')">
-                        Pasteles
-                    </a>
+                        <a onclick="irASeccion('pasteles')">Pasteles</a>
+                        <a onclick="irASeccion('eventos')">Pasteles para eventos</a>
+                        <a onclick="irASeccion('galletas')">Galletas</a>
+                        <a onclick="irASeccion('panaderia')">Panadería</a>
 
-                    <a onclick="irASeccion('eventos')">
-                        Pasteles para eventos
-                    </a>
-
-                    <a onclick="irASeccion('galletas')">
-                        Galletas
-                    </a>
-
-                    <a onclick="irASeccion('panaderia')">
-                        Panadería
-                    </a>
+                    </div>
 
                 </div>
 
+                <div class="separador"></div>
+
+                <input type="text" placeholder="Buscar...">
+
+                <button class="btn-buscar">
+                    <img src="public/assets/img/buscar.png" class="icono-nav">
+                </button>
+
             </div>
 
-            <div class="separador"></div>
-
-            <input type="text" placeholder="Buscar...">
-
-            <button class="btn-buscar">
-                <img src="public/assets/img/buscar.png" class="icono-nav">
-            </button>
-
         </div>
-
-    </div>
+    <?php endif; ?>
 
     <!-- DERECHA -->
     <div class="navbar-right">
@@ -79,15 +82,14 @@ $rol = $_SESSION['rol'] ?? null;
             <?php if ($usuario): ?>
 
                 <div class="perfil-btn">
-
                     <?= strtoupper(substr($usuario, 0, 1)) ?>
-
                 </div>
 
                 <div class="perfil-dropdown">
 
                     <a href="#">
-                        <img src="public/assets/img/usuario.png" class="icono-nav"> <?= $usuario ?>
+                        <img src="public/assets/img/usuario.png" class="icono-nav">
+                        <?= $usuario ?>
                     </a>
 
                     <a href="#">
@@ -95,15 +97,18 @@ $rol = $_SESSION['rol'] ?? null;
                     </a>
 
                     <a href="#">
-                        <img src="public/assets/img/proteccion-del-amor.png" class="icono-nav"> Favoritos
+                        <img src="public/assets/img/proteccion-del-amor.png" class="icono-nav">
+                        Favoritos
                     </a>
-<a href="?menu=configuracion">
-    <img src="public/assets/img/big-gear.png" class="icono-nav">Configuración
-</a>
+
+                    <a href="?menu=configuracion">
+                        <img src="public/assets/img/big-gear.png" class="icono-nav">
+                        Configuración
+                    </a>
 
                     <a href="?menu=logout">
-                        <img src="public/assets/img/cerrar-sesion-de-usuario.png" class="icono-nav"> Cerrar sesión
-
+                        <img src="public/assets/img/cerrar-sesion-de-usuario.png" class="icono-nav">
+                        Cerrar sesión
                     </a>
 
                 </div>
@@ -116,13 +121,8 @@ $rol = $_SESSION['rol'] ?? null;
 
                 <div class="perfil-dropdown">
 
-                    <a href="?menu=login">
-                        Iniciar sesión
-                    </a>
-
-                    <a href="?menu=registro">
-                        Crear cuenta
-                    </a>
+                    <a href="?menu=login">Iniciar sesión</a>
+                    <a href="?menu=registro">Crear cuenta</a>
 
                 </div>
 
