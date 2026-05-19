@@ -36,6 +36,13 @@ $respuesta = ['success' => false, 'mensaje' => ''];
 while (ob_get_level()) ob_end_clean();
 header('Content-Type: application/json');
 
+// POST — eliminar historial (va primero)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['eliminar'])) {
+    file_put_contents($historialFile, json_encode([]));
+    echo json_encode(['success' => true]);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['archivo_sql'])) {
 
     $archivo = $_FILES['archivo_sql'];

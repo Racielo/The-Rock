@@ -1,53 +1,156 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+// Suprimir warnings que contaminan la respuesta
+error_reporting(0);
+ini_set('display_errors', 0);
 
-<head>
-    <meta charset="UTF-8">
-    <title>Recuperar Contraseña</title>
-    <link rel="stylesheet" href="public/assets/css/fondo.css">
-    <link rel="stylesheet" href="public/assets/css/auth.css">
-    <link rel="icon" href="public/assets/img/logo.png" type="image/png">
-</head>
+// Solo iniciar sesión si no está activa
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-<body>
+// Solo admin
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'mensaje' => 'Acceso denegado.']);
+    exit;
+}
 
-    <div class="contenedor">
-        <div class="card">
+$env      = require 'env.php';
+$host     = $env['DB_HOST'];
+$db       = $env['DB_NAME'];
+$user     = $env['DB_USER'];
+$pass     = $env['DB_PASS'];
+$charset  = $env['DB_CHARSET'];
 
-            <div class="izquierda">
-                <img src="public/assets/img/logo.png" class="logo">
-                <h3>Recuperar<br>Contraseña</h3>
-            </div>
+// Archivo de historial
+$historialFile = 'storage/historial_restauraciones.json';
 
-            <div class="derecha">
+// Crear carpeta storage si no existe
+if (!is_dir('storage')) {
+    mkdir('storage', 0755, true);
+}
 
-                <div class="input-group">
-                    <img src="public/assets/img/correo.png" alt="icono-correo" width="20px">
-                    <input type="email" id="correo" name="correo" placeholder="Email">
-                    <div id="errorCorreo" class="error-text"></div>
-                </div>
+$respuesta = ['success' => false, 'mensaje' => ''];
 
-                <button type="button" onclick="recuperarContrasena()">Recuperar</button>
+// Limpiar cualquier salida previa de index.php y responder JSON limpio
+while (ob_get_level()) ob_end_clean();
+header('Content-Type: application/json');
 
-                <p>
-                    ¿Recordar tu contraseña?
-                    <a href="?menu=login">Volver para iniciar sesión</a>
-                </p>
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['archivo_sql'])) {
 
-            </div>
-        </div>
-    </div>
+    $archivo = $_FILES['archivo_sql'];
 
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <div id="modalIcon" class="icono"></div>
-            <h3 id="modalTitulo"></h3>
-            <p id="modalMensaje"></p>
-            <button onclick="cerrarModal()">OK</button>
-        </div>
-    </div>
+    // Validar que sea .sql
+    $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+    if ($extension !== 'sql') {
+        $respuesta['mensaje'] = 'Solo se permiten archivos .sql';
+        echo json_encode($respuesta);
+        exit;
+    }
 
-    <script src="public/assets/js/recuperar.js"></script>
-</body>
+    if ($archivo['error'] !== UPLOAD_ERR_OK) {
+        $respuesta['mensaje'] = 'Error al subir el archivo.';
+        echo json_encode($respuesta);
+        exit;
+    }
 
-</html>
+    $sql = file_get_contents($archivo['tmp_name']);
+
+    if (empty(trim($sql))) {
+        $respuesta['mensaje'] = 'El archivo SQL está vacío.';
+        echo json_encode($respuesta);
+        exit;
+    }
+
+    try {
+        $pdo = new PDO(
+            "mysql:host=$host;dbname=$db;charset=$charset",
+            $user, $pass,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::MYSQL_ATTR_LOCAL_INFILE => true,
+            ]
+        );
+
+        // Limpiar el SQL: quitar líneas que contengan HTML o warnings de PHP
+        $lineas = explode("\n", $sql);
+        $lineasLimpias = array_filter($lineas, function($linea) {
+            $l = trim($linea);
+            // Descartar líneas vacías o con HTML/PHP warnings
+            if (empty($l)) return false;
+            if (strpos($l, '<') !== false) return false;   // HTML
+            if (strpos($l, 'Notice:') !== false) return false;
+            if (strpos($l, 'Warning:') !== false) return false;
+            if (strpos($l, 'Deprecated:') !== false) return false;
+            return true;
+        });
+        $sql = implode("\n", $lineasLimpias);
+
+        // Ejecutar el SQL completo
+        $pdo->exec("SET FOREIGN_KEY_CHECKS=0;");
+
+        // Separar sentencias por ";\n"
+        $sentencias = array_filter(
+            array_map('trim', explode(";\n", $sql)),
+            fn($s) => !empty($s)
+        );
+
+        foreach ($sentencias as $sentencia) {
+            if (!empty(trim($sentencia))) {
+                $pdo->exec($sentencia);
+            }
+        }
+
+        $pdo->exec("SET FOREIGN_KEY_CHECKS=1;");
+
+        // Guardar en historial
+        $historial = [];
+        if (file_exists($historialFile)) {
+            $historial = json_decode(file_get_contents($historialFile), true) ?? [];
+        }
+
+        array_unshift($historial, [
+            'archivo'  => $archivo['name'],
+            'usuario'  => $_SESSION['usuario'] ?? 'admin',
+            'fecha'    => date('d/m/Y'),
+            'hora'     => date('H:i:s'),
+            'dia'      => date('d'),
+            'mes'      => date('m'),
+            'anio'     => date('Y'),
+            'timestamp'=> time(),
+        ]);
+
+        // Guardar solo últimas 50
+        $historial = array_slice($historial, 0, 50);
+        file_put_contents($historialFile, json_encode($historial, JSON_PRETTY_PRINT));
+
+        $respuesta['success'] = true;
+        $respuesta['mensaje'] = 'Base de datos restaurada correctamente.';
+
+    } catch (PDOException $e) {
+        $respuesta['mensaje'] = 'Error al ejecutar SQL: ' . $e->getMessage();
+    }
+
+    echo json_encode($respuesta);
+    exit;
+}
+
+// POST — eliminar historial
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['eliminar'])) {
+    if (file_exists($historialFile)) {
+        file_put_contents($historialFile, json_encode([]));
+    }
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+// GET — devolver historial
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['historial'])) {
+    header('Content-Type: application/json');
+    $historial = [];
+    if (file_exists($historialFile)) {
+        $historial = json_decode(file_get_contents($historialFile), true) ?? [];
+    }
+    echo json_encode($historial);
+    exit;
+}

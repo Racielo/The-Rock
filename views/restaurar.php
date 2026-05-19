@@ -176,6 +176,20 @@
 
             <div class="historial-titulo">
                 📋 Historial de Restauraciones
+                <button onclick="eliminarHistorial()" style="
+                    margin-left: auto;
+                    padding: 5px 12px;
+                    font-size: 0.78rem;
+                    background: #fff0f0;
+                    color: #c0392b;
+                    border: 1px solid #f5c6cb;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: background 0.2s;
+                " onmouseover="this.style.background='#f8d7da'" onmouseout="this.style.background='#fff0f0'">
+                    🗑 Eliminar historial
+                </button>
             </div>
 
             <div id="contenidoHistorial">
@@ -306,6 +320,15 @@
 
         // Cargar historial al entrar
         cargarHistorial();
+
+        function eliminarHistorial() {
+            if (!confirm('¿Eliminar todo el historial de restauraciones?')) return;
+            fetch('?menu=restaurar-bd&eliminar=1', { method: 'POST' })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) cargarHistorial();
+            });
+        }
     </script>
 
 </body>
