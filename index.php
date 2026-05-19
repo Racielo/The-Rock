@@ -26,108 +26,165 @@ if ($menu == 'login') {
 } elseif ($menu == 'usuarios') {
 
     if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
-
         header("Location: ?menu=home");
         exit;
     }
 
-    $usuarios = new UsuarioController($conexion);
-    $usuarios->index();
+    (new UsuarioController($conexion))->index();
+
 } elseif ($menu == 'verificar') {
 
-    $usuarios = new UsuarioController($conexion);
-    $usuarios->verificar();
+    (new UsuarioController($conexion))->verificar();
 
 } elseif ($menu == 'crear') {
 
-    $usuarios = new UsuarioController($conexion);
-    $usuarios->crear();
+    (new UsuarioController($conexion))->crear();
 
 } elseif ($menu == 'borrar') {
 
-    $usuarios = new UsuarioController($conexion);
-    $usuarios->borrar($_GET['id']);
+    (new UsuarioController($conexion))->borrar($_GET['id']);
 
 } elseif ($menu == 'editar') {
 
-    $usuarios = new UsuarioController($conexion);
-    $usuarios->editar($_GET['id']);
-}
-elseif ($menu == 'logout') {
+    (new UsuarioController($conexion))->editar($_GET['id']);
 
-    session_start();
+} elseif ($menu == 'logout') {
 
     session_destroy();
-
     header("Location: ?menu=home");
+    exit;
+}
 
-    exit;}
-     
 /* =========================
    PRODUCTOS
 ========================= */
+
 elseif ($menu == 'productos') {
 
     if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
-
         header("Location: ?menu=home");
         exit;
     }
 
-    $productos = new ProductoController($conexion);
-    $productos->index();
+    (new ProductoController($conexion))->index();
+
 } elseif ($menu == 'crearProducto') {
 
-    $productos = new ProductoController($conexion);
-    $productos->crear();
+    (new ProductoController($conexion))->crear();
 
 } elseif ($menu == 'borrarProducto') {
 
-    $productos = new ProductoController($conexion);
-    $productos->borrar($_GET['id']);
+    (new ProductoController($conexion))->borrar($_GET['id']);
 
 } elseif ($menu == 'editarProducto') {
 
-    $productos = new ProductoController($conexion);
-    $productos->editar($_GET['id']);
+    (new ProductoController($conexion))->editar($_GET['id']);
+}
 
-}/* =========================
+/* =========================
    INVENTARIO
 ========================= */
 
 elseif ($menu == 'inventario') {
 
     if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
-
         header("Location: ?menu=home");
         exit;
     }
 
-    $inventario = new InventarioController($conexion);
+    (new InventarioController($conexion))->index();
 
-    $inventario->index();
+} elseif ($menu == 'crearInventario') {
+
+    (new InventarioController($conexion))->crear();
+
+} elseif ($menu == 'borrarInventario') {
+
+    (new InventarioController($conexion))->borrar($_GET['id']);
+
+} elseif ($menu == 'editarInventario') {
+
+    (new InventarioController($conexion))->editar($_GET['id']);
 }
 
-elseif ($menu == 'crearInventario') {
+/* =========================
+   CONFIGURACION USUARIO
+========================= */
 
-    $inventario = new InventarioController($conexion);
+elseif ($menu == 'configuracion') {
 
-    $inventario->crear();
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: ?menu=login");
+        exit;
+    }
+
+    include 'views/configuracion.php';
+
+} elseif ($menu == 'actualizarPerfil') {
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: ?menu=login");
+        exit;
+    }
+
+    $sql = "UPDATE usuarios SET nombre=?, correo=?, pass=? WHERE id=?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute([
+        $_POST['nombre'],
+        $_POST['correo'],
+        $_POST['pass'],
+        $_SESSION['id']
+    ]);
+
+    $_SESSION['usuario'] = $_POST['nombre'];
+
+    header("Location: ?menu=configuracion");
+    exit;
 }
 
-elseif ($menu == 'borrarInventario') {
+/* =========================
+   BACKUP / BD
+========================= */
 
-    $inventario = new InventarioController($conexion);
+elseif ($menu == 'backup') {
 
-    $inventario->borrar($_GET['id']);
+    if ($_SESSION['rol'] != 'admin') {
+        header("Location: ?menu=home");
+        exit;
+    }
+
+    $archivo = "backup_" . date("Ymd_His") . ".sql";
+    system("mysqldump -u root therock > backups/$archivo");
+
+    header("Location: ?menu=configuracion");
+    exit;
+
+} elseif ($menu == 'exportar-bd') {
+
+    require 'controllers/exportar_bd.php';
+
+} elseif ($menu == 'restaurar-bd') {
+
+    require 'controllers/restaurar_bd.php';
+
+} elseif ($menu == 'restaurar') {
+
+    include 'views/restaurar.php';
 }
 
-elseif ($menu == 'editarInventario') {
+/* =========================
+   EXTRA (TU COMPA)
+========================= */
 
-    $inventario = new InventarioController($conexion);
+elseif ($menu == 'recuperar') {
 
-    $inventario->editar($_GET['id']);
+    include 'views/recuperar.php';
 }
+
+/* =========================
+   HOME
+========================= */
+
 else {
 
     include 'views/home.php';
