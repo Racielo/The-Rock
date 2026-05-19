@@ -83,7 +83,7 @@ function buscarInventario() {
    CERRAR MODAL AL DAR CLICK FUERA
 ========================= */
 
-window.onclick = function(event) {
+window.addEventListener('click', function(event) {
 
     let modalAgregar =
         document.getElementById("modalAgregarInventario");
@@ -100,4 +100,4 @@ window.onclick = function(event) {
 
         modalEditar.style.display = "none";
     }
-}
+});

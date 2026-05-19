@@ -24,7 +24,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
     <div class="hero">
-        <h1 class="titulo-principal">eslogan</h1>
+        <h1 class="titulo-principal">Eslogan</h1>
     </div>
     <div class="slider-showcase">
 

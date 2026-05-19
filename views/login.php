@@ -41,7 +41,7 @@
                         ¿No tienes cuenta?
                         <a href="?menu=registro">Regístrate</a> o
                         <br>
-                        <a href="?menu=restablecer-contraseña">¿Olvidaste tu contraseña?</a>
+                        <a href="?menu=recuperar">¿Olvidaste tu contraseña?</a>
                     </p>
 
                 </form>

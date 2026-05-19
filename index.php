@@ -128,6 +128,23 @@ elseif ($menu == 'editarInventario') {
 
     $inventario->editar($_GET['id']);
 }
+elseif ($menu == 'recuperar') {
+
+    include 'views/recuperar.php';
+
+} elseif ($menu == 'exportar-bd') {
+
+    require 'controllers/exportar_bd.php';
+
+} elseif ($menu == 'restaurar-bd') {
+
+    require 'controllers/restaurar_bd.php';
+
+} elseif ($menu == 'restaurar') {
+
+    include 'views/restaurar.php';
+
+}
 else {
 
     include 'views/home.php';

@@ -27,11 +27,11 @@ $rol = $_SESSION['rol'] ?? null;
 
             <div class="dropdown">
 
-                <button class="dropbtn">
+                <button class="dropbtn" onclick="toggleDropdown(event)">
                     Todos los productos ▼
                 </button>
 
-                <div class="dropdown-content">
+                <div class="dropdown-content" id="dropdownProductos">
 
                     <a onclick="irASeccion('pasteles')">
                         Pasteles
@@ -74,62 +74,89 @@ $rol = $_SESSION['rol'] ?? null;
     </div>
         -->
         <!-- PERFIL -->
-        <div class="perfil">
+        <div class="perfil" id="perfilMenu">
 
             <?php if ($usuario): ?>
 
-                <div class="perfil-btn">
-
+                <div class="perfil-btn" onclick="togglePerfil(event)">
                     <?= strtoupper(substr($usuario, 0, 1)) ?>
-
                 </div>
 
-                <div class="perfil-dropdown">
+                <div class="perfil-dropdown" id="perfilDropdown">
 
                     <a href="#">
                         <img src="public/assets/img/usuario.png" class="icono-nav"> <?= $usuario ?>
                     </a>
 
-                    <a href="#">
-                        Rol: <?= $rol ?>
-                    </a>
+                    <a href="#">Rol: <?= $rol ?></a>
 
                     <a href="#">
                         <img src="public/assets/img/proteccion-del-amor.png" class="icono-nav"> Favoritos
                     </a>
 
-                    <a href="#">
-                        <img src="public/assets/img/big-gear.png" class="icono-nav">Configuración
+                    <a href="#" onclick="toggleConfiguracion(event)">
+                        <img src="public/assets/img/big-gear.png" class="icono-nav"> Configuracion &#9662;
                     </a>
 
-                    <a href="?menu=logout">
-                        <img src="public/assets/img/cerrar-sesion-de-usuario.png" class="icono-nav"> Cerrar sesión
+                    <div id="submenuConfig" style="display:none; background:rgba(0,0,0,0.15); padding:4px 0;">
+                        <?php if ($rol === 'admin'): ?>
+                        <a href="?menu=exportar-bd" style="padding-left:28px; font-size:13px;">
+                            &#11015; Descargar base de datos
+                        </a>
+                        <a href="?menu=restaurar" style="padding-left:28px; font-size:13px;">
+                            &#11014; Restaurar base de datos
+                        </a>
+                        <?php endif; ?>
+                    </div>
 
+                    <a href="?menu=logout">
+                        <img src="public/assets/img/cerrar-sesion-de-usuario.png" class="icono-nav"> Cerrar sesion
                     </a>
 
                 </div>
 
             <?php else: ?>
 
-                <div class="perfil-btn">
+                <div class="perfil-btn" onclick="togglePerfil(event)">
                     <img src="public/assets/img/agregar-usuario.png" class="icono-nav">
                 </div>
 
-                <div class="perfil-dropdown">
-
-                    <a href="?menu=login">
-                        Iniciar sesión
-                    </a>
-
-                    <a href="?menu=registro">
-                        Crear cuenta
-                    </a>
-
+                <div class="perfil-dropdown" id="perfilDropdown">
+                    <a href="?menu=login">Iniciar sesion</a>
+                    <a href="?menu=registro">Crear cuenta</a>
                 </div>
 
             <?php endif; ?>
 
         </div>
+
+        <script>
+        function toggleDropdown(e) {
+            e.stopPropagation();
+            document.getElementById('dropdownProductos').classList.toggle('abierto');
+        }
+        function togglePerfil(e) {
+            e.stopPropagation();
+            document.getElementById('perfilDropdown').classList.toggle('abierto');
+        }
+        function toggleConfiguracion(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var sub = document.getElementById('submenuConfig');
+            sub.style.display = sub.style.display === 'none' ? 'block' : 'none';
+        }
+        document.addEventListener('click', function(e) {
+            var menu = document.getElementById('perfilMenu');
+            var dd   = document.getElementById('perfilDropdown');
+            if (dd && menu && !menu.contains(e.target)) {
+                dd.classList.remove('abierto');
+            }
+            var ddProd = document.getElementById('dropdownProductos');
+            if (ddProd && !e.target.closest('.dropdown')) {
+                ddProd.classList.remove('abierto');
+            }
+        });
+        </script>
 
     </div>
 

@@ -335,7 +335,7 @@ button {
 
 /* MOSTRAR MENU */
 
-.dropdown:hover .dropdown-content {
+.dropdown-content.abierto {
 
     display: block;
 }
@@ -475,7 +475,7 @@ button {
     background: rgba(255,255,255,0.2);
 }
 
-.perfil:hover .perfil-dropdown{
+.perfil-dropdown.abierto{
 
     display: block;
 }

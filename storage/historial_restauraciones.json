@@ -1,0 +1,22 @@
+[
+    {
+        "archivo": "backup_therock_2026-05-19_07-07-06.sql",
+        "usuario": "Jose Luis Cruz",
+        "fecha": "19\/05\/2026",
+        "hora": "07:07:12",
+        "dia": "19",
+        "mes": "05",
+        "anio": "2026",
+        "timestamp": 1779174432
+    },
+    {
+        "archivo": "backup_therock_2026-05-19_07-06-05.sql",
+        "usuario": "Jose Luis Cruz",
+        "fecha": "19\/05\/2026",
+        "hora": "07:06:12",
+        "dia": "19",
+        "mes": "05",
+        "anio": "2026",
+        "timestamp": 1779174372
+    }
+]
