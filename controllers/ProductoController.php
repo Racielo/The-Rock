@@ -1,65 +1,89 @@
 <?php
+
 require_once 'models/ProductoModel.php';
 
 class ProductoController {
+
     private $modelo;
 
     public function __construct($conexion) {
         $this->modelo = new ProductoModel($conexion);
     }
 
+    /* =========================
+       MOSTRAR
+    ========================= */
+
     public function index() {
+
         $productos = $this->modelo->listar();
+
         include 'views/productos.php';
     }
 
+    /* =========================
+       CREAR
+    ========================= */
+
     public function crear() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $ingrediente = $_POST['ingrediente'];
-            $actual = $_POST['cantidad'];
-            $maximo = $_POST['maximo'];
-            $unidad = $_POST['unidad'];
-            $fecha = $_POST['fecha'];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $this->modelo->guardar($ingrediente, $actual, $maximo, $unidad, $fecha);
+            $this->modelo->guardar(
 
-            header("Location: ?menu=productos");
-            exit;
+                $_POST['nombre_producto'],
+                $_POST['descripcion'],
+                $_POST['precio_venta'],
+                $_POST['categoria'],
+                $_POST['fecha_elaboracion'],
+                $_POST['dias_vida_util'],
+                $_POST['imagen_url'],
+                $_POST['estado_producto']
+            );
         }
-    }
 
-    public function borrar($id) {
-        $this->modelo->eliminar($id);
         header("Location: ?menu=productos");
         exit;
     }
 
+    /* =========================
+       ELIMINAR
+    ========================= */
+
+    public function borrar($id) {
+
+        $this->modelo->eliminar($id);
+
+        header("Location: ?menu=productos");
+        exit;
+    }
+
+    /* =========================
+       ACTUALIZAR
+    ========================= */
+
     public function editar($id) {
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $ingrediente = $_POST['ingrediente'];
-            $actual = $_POST['cantidad'];
-            $maximo = $_POST['maximo'];
-            $unidad = $_POST['unidad'];
-            $fecha = $_POST['fecha'];
+            $this->modelo->actualizar(
 
-            $this->modelo->actualizar($id, $ingrediente, $actual, $maximo, $unidad, $fecha);
+                $id,
 
-            header("Location: ?menu=productos");
-            exit;
+                $_POST['nombre_producto'],
+                $_POST['descripcion'],
+                $_POST['precio_venta'],
+                $_POST['categoria'],
+                $_POST['fecha_elaboracion'],
+                $_POST['dias_vida_util'],
+                $_POST['imagen_url'],
+                $_POST['estado_producto']
+            );
         }
 
-        // 🔥 ESTA PARTE SOLUCIONA TU ERROR
-        $producto = $this->modelo->obtenerPorId($id);
-
-        if (!$producto) {
-            echo "Producto no encontrado";
-            exit;
-        }
-
-        include 'views/editProducto.php';
+        header("Location: ?menu=productos");
+        exit;
     }
 }
+
 ?>

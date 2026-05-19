@@ -68,11 +68,11 @@ $rol = $_SESSION['rol'] ?? null;
     <!-- DERECHA -->
     <div class="navbar-right">
 
-        <!-- NOTIFICACIONES 
-     <div class="notificaciones">
-        <img src="public/assets/img/notificacion.png" class="icono-nav">
-    </div>
-        -->
+        <!-- NOTIFICACIONES -->
+        <div class="notificaciones">
+            <img src="public/assets/img/notificacion.png" class="icono-nav">
+        </div>
+
         <!-- PERFIL -->
         <div class="perfil">
 
@@ -97,10 +97,9 @@ $rol = $_SESSION['rol'] ?? null;
                     <a href="#">
                         <img src="public/assets/img/proteccion-del-amor.png" class="icono-nav"> Favoritos
                     </a>
-
-                    <a href="#">
-                        <img src="public/assets/img/big-gear.png" class="icono-nav">Configuración
-                    </a>
+<a href="?menu=configuracion">
+    <img src="public/assets/img/big-gear.png" class="icono-nav">Configuración
+</a>
 
                     <a href="?menu=logout">
                         <img src="public/assets/img/cerrar-sesion-de-usuario.png" class="icono-nav"> Cerrar sesión

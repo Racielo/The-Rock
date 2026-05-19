@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/usuarios.css">
+    <link rel="stylesheet" href="public/assets/css/styles.css">
     <link rel="stylesheet" href="public/assets/css/sidebar.css">
 
     <link rel="icon"
@@ -19,141 +20,91 @@
 
 <body>
 
-    <!-- BOTON MENU -->
+<?php include 'views/layouts/navbar.php'; ?>
+<?php include 'views/layouts/sidebar.php'; ?>
 
-    <button class="btn-menu"
-            onclick="abrirPanel()">
+<!-- CONTENIDO -->
+<div class="container">
 
-        ☰
+    <div class="card">
 
-    </button>
+        <h1>Inventario</h1>
 
-    <!-- SIDEBAR -->
+        <!-- BOTON -->
+        <button class="btn-agregar"
+                onclick="abrirModalInventario()">
 
-    <?php include 'views/layouts/sidebar.php'; ?>
+            + Agregar Insumo
 
-    <!-- CONTENIDO -->
+        </button>
 
-    <div class="container">
+        <!-- BUSCADOR -->
+        <div class="buscador">
 
-        <div class="card">
+            <input type="text"
+                   id="buscarInventario"
+                   placeholder="Buscar insumo..."
+                   onkeyup="buscarInventario()">
 
-            <h1>Inventario de Materia Prima</h1>
+        </div>
 
-            <!-- BOTON AGREGAR -->
+        <!-- TABLA -->
+        <table id="tablaInventario">
 
-            <button class="btn-agregar"
-                    onclick="abrirModalInventario()">
+            <thead>
 
-                + Agregar Ingrediente
+                <tr>
 
-            </button>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Unidad</th>
+                    <th>Stock mínimo</th>
+                    <th>Ingreso</th>
+                    <th>Caducidad</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
 
-            <!-- BUSCADOR -->
+                </tr>
 
-            <div class="buscador">
+            </thead>
 
-                <input type="text"
-                       id="buscarInventario"
-                       placeholder="Buscar por nombre, categoría o unidad..."
-                       onkeyup="buscarInventario()">
+            <tbody>
 
-            </div>
+            <?php if(!empty($inventario)): ?>
 
-            <!-- TABLA -->
-
-            <table id="tablaInventario">
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Categoría</th>
-                        <th>Unidad</th>
-                        <th>Stock Actual</th>
-                        <th>Stock Mínimo</th>
-                        <th>Costo</th>
-                        <th>Caducidad</th>
-                        <th>Estado</th>
-                        <th>Alerta</th>
-                        <th>Acciones</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <?php foreach ($inventario as $p): ?>
-
-                    <?php
-
-                        if ($p['stock_actual'] <= $p['stock_minimo']) {
-
-                            $color = "red";
-                            $mensaje = "Bajo";
-
-                        }
-
-                        elseif ($p['stock_actual'] <= ($p['stock_minimo'] * 2)) {
-
-                            $color = "orange";
-                            $mensaje = "Medio";
-
-                        }
-
-                        else {
-
-                            $color = "green";
-                            $mensaje = "Correcto";
-                        }
-
-                    ?>
+                <?php foreach($inventario as $item): ?>
 
                     <tr>
 
-                        <td><?= $p['id_inventario'] ?></td>
+                        <td><?= $item['id_insumo'] ?></td>
 
-                        <td><?= $p['nombre'] ?></td>
+                        <td><?= $item['nombre'] ?></td>
 
-                        <td><?= $p['categoria'] ?></td>
+                        <td><?= $item['cantidad_actual'] ?></td>
 
-                        <td><?= $p['unidad_medida'] ?></td>
+                        <td><?= $item['unidad_medida'] ?></td>
 
-                        <td><?= $p['stock_actual'] ?></td>
+                        <td><?= $item['stock_minimo'] ?></td>
 
-                        <td><?= $p['stock_minimo'] ?></td>
+                        <td><?= $item['fecha_ingreso'] ?></td>
 
-                        <td>$<?= $p['costo_unitario'] ?></td>
+                        <td><?= $item['fecha_caducidad'] ?></td>
 
-                        <td><?= $p['fecha_caducidad'] ?></td>
-
-                        <td><?= $p['estado'] ?></td>
-
-                        <td style="color: <?= $color ?>">
-
-                            <?= $mensaje ?>
-
-                        </td>
+                        <td><?= $item['estado'] ?></td>
 
                         <td>
 
                             <!-- EDITAR -->
-
                             <button onclick="abrirEditarInventario(
-
-                                '<?= $p['id_inventario'] ?>',
-                                '<?= $p['nombre'] ?>',
-                                '<?= $p['categoria'] ?>',
-                                '<?= $p['unidad_medida'] ?>',
-                                '<?= $p['stock_actual'] ?>',
-                                '<?= $p['stock_minimo'] ?>',
-                                '<?= $p['costo_unitario'] ?>',
-                                '<?= $p['fecha_caducidad'] ?>',
-                                '<?= $p['estado'] ?>'
-
+                                '<?= $item['id_insumo'] ?>',
+                                '<?= $item['nombre'] ?>',
+                                '<?= $item['cantidad_actual'] ?>',
+                                '<?= $item['unidad_medida'] ?>',
+                                '<?= $item['stock_minimo'] ?>',
+                                '<?= $item['fecha_ingreso'] ?>',
+                                '<?= $item['fecha_caducidad'] ?>',
+                                '<?= $item['estado'] ?>'
                             )">
 
                                 Editar
@@ -161,9 +112,8 @@
                             </button>
 
                             <!-- ELIMINAR -->
-
-                            <a href="?menu=borrarInventario&id=<?= $p['id_inventario'] ?>"
-                               onclick="return confirm('¿Eliminar registro?')">
+                            <a href="?menu=borrarInventario&id=<?= $item['id_insumo'] ?>"
+                               onclick="return confirm('¿Eliminar insumo?')">
 
                                 <button>
 
@@ -177,171 +127,194 @@
 
                     </tr>
 
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
 
-                </tbody>
+            <?php else: ?>
 
-            </table>
+                <tr>
 
-        </div>
+                    <td colspan="9">
 
-    </div>
+                        No hay insumos registrados
 
-    <!-- MODAL AGREGAR -->
+                    </td>
 
-    <div id="modalAgregarInventario"
-         class="modal">
+                </tr>
 
-        <div class="modal-contenido">
+            <?php endif; ?>
 
-            <span class="cerrar-modal"
-                  onclick="cerrarModalInventario()">
+            </tbody>
 
-                &times;
-
-            </span>
-
-            <h2>Agregar Ingrediente</h2>
-
-            <form method="POST"
-                  action="?menu=crearInventario">
-
-                <input type="text"
-                       name="nombre"
-                       placeholder="Nombre"
-                       required>
-
-                <input type="text"
-                       name="categoria"
-                       placeholder="Categoría"
-                       required>
-
-                <input type="text"
-                       name="unidad"
-                       placeholder="Unidad de medida"
-                       required>
-
-                <input type="number"
-                       step="0.01"
-                       name="stock_actual"
-                       placeholder="Stock actual"
-                       required>
-
-                <input type="number"
-                       step="0.01"
-                       name="stock_minimo"
-                       placeholder="Stock mínimo"
-                       required>
-
-                <input type="number"
-                       step="0.01"
-                       name="costo"
-                       placeholder="Costo unitario"
-                       required>
-
-                <input type="date"
-                       name="fecha"
-                       required>
-
-                <button type="submit">
-
-                    Guardar
-
-                </button>
-
-            </form>
-
-        </div>
+        </table>
 
     </div>
 
-    <!-- MODAL EDITAR -->
+</div>
 
-    <div id="modalInventario"
-         class="modal">
+<!-- MODAL AGREGAR -->
+<div id="modalInventario" class="modal">
 
-        <div class="modal-contenido">
+    <div class="modal-contenido">
 
-            <span class="cerrar-modal"
-                  onclick="cerrarEditarInventario()">
+        <span class="cerrar-modal"
+              onclick="cerrarModalInventario()">
 
-                &times;
+            &times;
 
-            </span>
+        </span>
 
-            <h2>Editar Inventario</h2>
+        <h2>Agregar Insumo</h2>
 
-            <form method="POST"
-                  id="formEditarInventario">
+        <form method="POST"
+              action="?menu=crearInventario">
 
-                <input type="text"
-                       name="nombre"
-                       id="editNombre"
-                       required>
+            <input type="text"
+                   name="nombre"
+                   placeholder="Nombre"
+                   required>
 
-                <input type="text"
-                       name="categoria"
-                       id="editCategoria"
-                       required>
+            <input type="number"
+                   step="0.01"
+                   name="cantidad_actual"
+                   placeholder="Cantidad actual"
+                   required>
 
-                <input type="text"
-                       name="unidad"
-                       id="editUnidad"
-                       required>
+            <input type="text"
+                   name="unidad_medida"
+                   placeholder="Unidad"
+                   required>
 
-                <input type="number"
-                       step="0.01"
-                       name="stock_actual"
-                       id="editStockActual"
-                       required>
+            <input type="number"
+                   step="0.01"
+                   name="stock_minimo"
+                   placeholder="Stock mínimo"
+                   required>
 
-                <input type="number"
-                       step="0.01"
-                       name="stock_minimo"
-                       id="editStockMinimo"
-                       required>
+            <input type="date"
+                   name="fecha_ingreso"
+                   required>
 
-                <input type="number"
-                       step="0.01"
-                       name="costo"
-                       id="editCosto"
-                       required>
+            <input type="date"
+                   name="fecha_caducidad"
+                   required>
 
-                <input type="date"
-                       name="fecha"
-                       id="editFecha"
-                       required>
+            <select name="estado">
 
-                <select name="estado"
-                        id="editEstado">
+                <option value="Disponible">
+                    Disponible
+                </option>
 
-                    <option value="activo">
-                        Activo
-                    </option>
+                <option value="Por caducar">
+                    Por caducar
+                </option>
 
-                    <option value="inactivo">
-                        Inactivo
-                    </option>
+                <option value="Agotado">
+                    Agotado
+                </option>
 
-                </select>
+                <option value="Inactivo">
+                    Inactivo
+                </option>
 
-                <button type="submit">
+            </select>
 
-                    Guardar Cambios
+            <button type="submit">
 
-                </button>
+                Guardar
 
-            </form>
+            </button>
 
-        </div>
+        </form>
 
     </div>
 
-    <!-- SCRIPTS -->
+</div>
 
-    <script src="public/assets/js/sidebar.js"></script>
+<!-- MODAL EDITAR -->
+<div id="modalEditarInventario" class="modal">
 
-    <script src="public/assets/js/inventario.js"></script>
+    <div class="modal-contenido">
+
+        <span class="cerrar-modal"
+              onclick="cerrarEditarInventario()">
+
+            &times;
+
+        </span>
+
+        <h2>Editar Inventario</h2>
+
+        <form method="POST"
+              id="formEditarInventario">
+
+            <input type="text"
+                   name="nombre"
+                   id="editNombre"
+                   required>
+
+            <input type="number"
+                   step="0.01"
+                   name="cantidad_actual"
+                   id="editCantidad"
+                   required>
+
+            <input type="text"
+                   name="unidad_medida"
+                   id="editUnidad"
+                   required>
+
+            <input type="number"
+                   step="0.01"
+                   name="stock_minimo"
+                   id="editMinimo"
+                   required>
+
+            <input type="date"
+                   name="fecha_ingreso"
+                   id="editIngreso"
+                   required>
+
+            <input type="date"
+                   name="fecha_caducidad"
+                   id="editCaducidad"
+                   required>
+
+            <select name="estado"
+                    id="editEstado">
+
+                <option value="Disponible">
+                    Disponible
+                </option>
+
+                <option value="Por caducar">
+                    Por caducar
+                </option>
+
+                <option value="Agotado">
+                    Agotado
+                </option>
+
+                <option value="Inactivo">
+                    Inactivo
+                </option>
+
+            </select>
+
+            <button type="submit">
+
+                Guardar Cambios
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- JS -->
+<script src="public/assets/js/sidebar.js"></script>
+<script src="public/assets/js/inventario.js"></script>
 
 </body>
 

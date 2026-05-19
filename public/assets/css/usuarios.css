@@ -1,101 +1,106 @@
 .container {
-    padding: 30px;
+
+    padding: 120px 30px 30px 30px;
 }
+
+/* TARJETA */
 
 .card {
+
     background: rgba(255,255,255,0.95);
+
     border-radius: 20px;
-    padding: 20px;
+
+    padding: 25px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
+
+/* TITULO */
 
 h1 {
+
     text-align: center;
-}
 
-.form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
+    color: #8b5a2b;
 
-.form input, .form select {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    flex: 1;
-}
-
-.form button {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #8b5a2b;
-    color: white;
-    cursor: pointer;
+    margin-bottom: 25px;
 }
 
 /* TABLA */
+
 table {
+
     width: 100%;
+
     border-collapse: collapse;
+
+    margin-top: 20px;
 }
 
-th, td {
-    padding: 10px;
+th,
+td {
+
+    padding: 14px;
+
     text-align: center;
 }
 
 th {
+
     background: #8b5a2b;
+
     color: white;
 }
 
 tr:nth-child(even) {
-    background: #f2f2f2;
+
+    background: #f3f3f3;
 }
 
 /* BOTONES */
-.btn {
+
+button {
+
     border: none;
-    padding: 5px 10px;
+
+    padding: 10px 15px;
+
     border-radius: 10px;
+
     cursor: pointer;
+
+    transition: 0.3s;
 }
 
-.btn-eliminar { background: red; color: white; }
-.btn-editar { background: #d9a679; color: white; }
-.btn-guardar { background: green; color: white; }
+button:hover {
 
-/* ESTADOS */
-.activo {
-    color: green;
-    font-weight: bold;
+    transform: scale(1.05);
 }
 
-.inactivo {
-    color: red;
-    font-weight: bold;
-}
 /* BOTON AGREGAR */
 
-.btn-agregar{
+.btn-agregar {
+
     background: #8b5a2b;
+
     color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+
     margin-bottom: 20px;
 }
 
 /* MODAL */
 
-.modal{
+.modal {
+
     display: none;
 
     position: fixed;
-    top: 0;
+
+    z-index: 30000;
+
     left: 0;
+    top: 0;
 
     width: 100%;
     height: 100%;
@@ -106,9 +111,9 @@ tr:nth-child(even) {
     align-items: center;
 }
 
-/* CONTENIDO */
+/* CONTENIDO MODAL */
 
-.modal-contenido{
+.modal-contenido {
 
     background: white;
 
@@ -119,51 +124,41 @@ tr:nth-child(even) {
     width: 400px;
 
     display: flex;
+
     flex-direction: column;
+
     gap: 15px;
 
     position: relative;
 }
 
-/* FORM */
-
-.modal-contenido form{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
 /* INPUTS */
 
-.modal-contenido input{
+.modal-contenido input,
+.modal-contenido textarea,
+.modal-contenido select {
 
     padding: 12px;
 
     border-radius: 10px;
 
     border: 1px solid #ccc;
+
+    width: 100%;
 }
 
 /* BOTON */
 
-.modal-contenido button{
+.modal-contenido button {
 
     background: #8b5a2b;
 
     color: white;
-
-    padding: 12px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
 }
 
 /* CERRAR */
 
-.cerrar-modal{
+.cerrar-modal {
 
     position: absolute;
 
@@ -173,20 +168,4 @@ tr:nth-child(even) {
     font-size: 25px;
 
     cursor: pointer;
-}
-.buscador{
-    margin-bottom: 20px;
-}
-
-.buscador input{
-
-    width: 300px;
-
-    padding: 12px;
-
-    border-radius: 10px;
-
-    border: 1px solid #ccc;
-
-    outline: none;
 }

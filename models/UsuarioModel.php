@@ -81,6 +81,26 @@ class UsuarioModel {
             $id
         ]);
     }
+    public function actualizarCuenta(
+    $id,
+    $nombre,
+    $correo,
+    $password
+) {
+
+    $sql = "UPDATE usuarios
+            SET nombre = ?, correo = ?, pass = ?
+            WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    return $stmt->execute([
+        trim($nombre),
+        trim($correo),
+        trim($password),
+        $id
+    ]);
+}
 
 }
 

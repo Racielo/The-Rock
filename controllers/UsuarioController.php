@@ -29,6 +29,9 @@ public function verificar() {
 
         $_SESSION['rol'] = $usuario['rol'];
 
+        $_SESSION['id'] = $usuario['id'];
+
+
         header("Location: ?menu=home");
 
     } else {

@@ -5,255 +5,301 @@
 
     <meta charset="UTF-8">
 
-    <title>Inventario</title>
+    <title>Productos</title>
 
     <link rel="stylesheet" href="public/assets/css/fondo.css">
     <link rel="stylesheet" href="public/assets/css/usuarios.css">
+    <link rel="stylesheet" href="public/assets/css/styles.css">
     <link rel="stylesheet" href="public/assets/css/sidebar.css">
-        <link rel="icon" href="public/assets/img/logo.png" type="image/png">
 
+    <link rel="icon"
+          href="public/assets/img/logo.png"
+          type="image/png">
 
 </head>
 
 <body>
 
-    <!-- BOTON MENU -->
-    <button class="btn-menu" onclick="abrirPanel()">
-        ☰
-    </button>
-
-    <!-- SIDEBAR -->
+<?php include 'views/layouts/navbar.php'; ?>
 <?php include 'views/layouts/sidebar.php'; ?>
 
-    <!-- CONTENIDO -->
-    <div class="container">
+<!-- CONTENIDO -->
+<div class="container">
 
-        <div class="card">
+    <div class="card">
 
-            <h1>Inventario de Materia Prima</h1>
+        <h1>Productos</h1>
 
-            <!-- BOTON AGREGAR -->
-            <button class="btn-agregar"
-                    onclick="abrirModalProducto()">
+        <!-- BOTON AGREGAR -->
+        <button class="btn-agregar"
+                onclick="abrirModalProducto()">
 
-                + Agregar Producto
+            + Agregar Producto
 
-            </button>
+        </button>
 
-            <!-- BUSCADOR -->
-            <div class="buscador">
+        <!-- TABLA -->
+        <table id="tablaProductos">
 
-                <input type="text"
-                       id="buscarProducto"
-                       placeholder="Buscar por ID, ingrediente o unidad..."
-                       onkeyup="buscarProductos()">
+            <thead>
 
-            </div>
+                <tr>
 
-            <!-- TABLA -->
-            <table id="tablaProductos">
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Vida útil</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
 
-                <thead>
+                </tr>
 
-                    <tr>
+            </thead>
 
-                        <th>ID</th>
-                        <th>Ingrediente</th>
-                        <th>Cantidad</th>
-                        <th>Máximo</th>
-                        <th>Unidad</th>
-                        <th>% Stock</th>
-                        <th>Caducidad</th>
-                        <th>Acciones</th>
+            <tbody>
 
-                    </tr>
+                <?php if(!empty($productos)): ?>
 
-                </thead>
+                    <?php foreach($productos as $producto): ?>
 
-                <tbody>
+                        <tr>
 
-                    <?php foreach ($productos as $p):
+                            <td><?= $producto['id_producto'] ?></td>
 
-                        $porcentaje =
-                        ($p['cantidad_actual'] /
-                        $p['cantidad_maxima']) * 100;
+                            <td><?= $producto['nombre_producto'] ?></td>
 
-                    ?>
+                            <td><?= $producto['descripcion'] ?></td>
 
-                    <tr>
+                            <td>$<?= $producto['precio_venta'] ?></td>
 
-                        <td><?= $p['id'] ?></td>
+                            <td><?= $producto['categoria'] ?></td>
 
-                        <td><?= $p['ingrediente'] ?></td>
+                            <td><?= $producto['dias_vida_util'] ?> días</td>
 
-                        <td><?= $p['cantidad_actual'] ?></td>
+                            <td><?= $producto['estado_producto'] ?></td>
 
-                        <td><?= $p['cantidad_maxima'] ?></td>
+                            <td>
 
-                        <td><?= $p['unidad_medida'] ?></td>
+                                <!-- EDITAR -->
+                                <button onclick="abrirEditarProducto(
+                                    '<?= $producto['id_producto'] ?>',
+                                    '<?= $producto['nombre_producto'] ?>',
+                                    '<?= $producto['descripcion'] ?>',
+                                    '<?= $producto['precio_venta'] ?>',
+                                    '<?= $producto['categoria'] ?>',
+                                    '<?= $producto['fecha_elaboracion'] ?>',
+                                    '<?= $producto['dias_vida_util'] ?>',
+                                    '<?= $producto['imagen_url'] ?>',
+                                    '<?= $producto['estado_producto'] ?>'
+                                )">
 
-                        <td style="
-                            color:
-                            <?= $porcentaje < 30
-                            ? 'red'
-                            : ($porcentaje < 60
-                            ? 'orange'
-                            : 'green') ?>
-                        ">
+                                    Editar
 
-                            <?= round($porcentaje) ?>%
-
-                        </td>
-
-                        <td><?= $p['fecha'] ?></td>
-
-                        <td>
-
-                            <!-- EDITAR -->
-                            <button onclick="abrirEditarProducto(
-                                '<?= $p['id'] ?>',
-                                '<?= $p['ingrediente'] ?>',
-                                '<?= $p['cantidad_actual'] ?>',
-                                '<?= $p['cantidad_maxima'] ?>',
-                                '<?= $p['unidad_medida'] ?>',
-                                '<?= $p['fecha'] ?>'
-                            )">
-
-                                Editar
-
-                            </button>
-
-                            <!-- ELIMINAR -->
-                            <a href="?menu=borrarProducto&id=<?= $p['id'] ?>"
-                               onclick="return confirm('¿Eliminar producto?')">
-
-                                <button>
-                                    Eliminar
                                 </button>
 
-                            </a>
+                                <!-- ELIMINAR -->
+                                <a href="?menu=borrarProducto&id=<?= $producto['id_producto'] ?>"
+                                   onclick="return confirm('¿Eliminar producto?')">
 
-                        </td>
+                                    <button>
 
-                    </tr>
+                                        Eliminar
+
+                                    </button>
+
+                                </a>
+
+                            </td>
+
+                        </tr>
 
                     <?php endforeach; ?>
 
-                </tbody>
+                <?php else: ?>
 
-            </table>
+                    <tr>
 
-        </div>
+                        <td colspan="8">
 
-    </div>
+                            No hay productos registrados
 
-    <!-- MODAL AGREGAR PRODUCTO -->
-    <div id="modalAgregarProducto" class="modal">
+                        </td>
 
-        <div class="modal-contenido">
+                    </tr>
 
-            <span class="cerrar-modal"
-                  onclick="cerrarModalProducto()">
+                <?php endif; ?>
 
-                &times;
+            </tbody>
 
-            </span>
-
-            <h2>Agregar Producto</h2>
-
-            <form method="POST"
-                  action="?menu=crearProducto">
-
-                <input type="text"
-                       name="ingrediente"
-                       placeholder="Ingrediente"
-                       required>
-
-                <input type="number"
-                       name="cantidad"
-                       placeholder="Cantidad actual"
-                       required>
-
-                <input type="number"
-                       name="maximo"
-                       placeholder="Cantidad máxima"
-                       required>
-
-                <input type="text"
-                       name="unidad"
-                       placeholder="Unidad"
-                       required>
-
-                <input type="date"
-                       name="fecha"
-                       required>
-
-                <button type="submit">
-                    Guardar
-                </button>
-
-            </form>
-
-        </div>
+        </table>
 
     </div>
 
-    <!-- MODAL EDITAR PRODUCTO -->
-    <div id="modalProducto" class="modal">
+</div>
 
-        <div class="modal-contenido">
+<!-- MODAL AGREGAR -->
+<div id="modalAgregarProducto" class="modal">
 
-            <span class="cerrar-modal"
-                  onclick="cerrarEditarProducto()">
+    <div class="modal-contenido">
 
-                &times;
+        <span class="cerrar-modal"
+              onclick="cerrarModalProducto()">
 
-            </span>
+            &times;
 
-            <h2>Editar Producto</h2>
+        </span>
 
-            <form method="POST"
-                  id="formEditarProducto">
+        <h2>Agregar Producto</h2>
 
-                <input type="text"
-                       name="ingrediente"
-                       id="editIngrediente"
-                       required>
+        <form method="POST"
+              action="?menu=crearProducto">
 
-                <input type="number"
-                       name="cantidad"
-                       id="editCantidad"
-                       required>
+            <input type="text"
+                   name="nombre_producto"
+                   placeholder="Nombre del producto"
+                   required>
 
-                <input type="number"
-                       name="maximo"
-                       id="editMaximo"
-                       required>
+            <textarea name="descripcion"
+                      placeholder="Descripción"
+                      required></textarea>
 
-                <input type="text"
-                       name="unidad"
-                       id="editUnidad"
-                       required>
+            <input type="number"
+                   step="0.01"
+                   name="precio_venta"
+                   placeholder="Precio"
+                   required>
 
-                <input type="date"
-                       name="fecha"
-                       id="editFecha"
-                       required>
+            <input type="text"
+                   name="categoria"
+                   placeholder="Categoría"
+                   required>
 
-                <button type="submit">
-                    Guardar Cambios
-                </button>
+            <input type="datetime-local"
+                   name="fecha_elaboracion"
+                   required>
 
-            </form>
+            <input type="number"
+                   name="dias_vida_util"
+                   placeholder="Días de vida útil"
+                   required>
 
-        </div>
+            <input type="text"
+                   name="imagen_url"
+                   placeholder="Ruta de imagen">
+
+            <select name="estado_producto">
+
+                <option value="Activo">
+                    Activo
+                </option>
+
+                <option value="Inactivo">
+                    Inactivo
+                </option>
+
+                <option value="Temporada">
+                    Temporada
+                </option>
+
+            </select>
+
+            <button type="submit">
+
+                Guardar
+
+            </button>
+
+        </form>
 
     </div>
 
-    <!-- SIDEBAR -->
-    <script src="public/assets/js/sidebar.js"></script>
-        <script src="public/assets/js/productos.js"></script>
+</div>
 
+<!-- MODAL EDITAR -->
+<div id="modalProducto" class="modal">
+
+    <div class="modal-contenido">
+
+        <span class="cerrar-modal"
+              onclick="cerrarEditarProducto()">
+
+            &times;
+
+        </span>
+
+        <h2>Editar Producto</h2>
+
+        <form method="POST"
+              id="formEditarProducto">
+
+            <input type="text"
+                   name="nombre_producto"
+                   id="editNombreProducto"
+                   required>
+
+            <textarea name="descripcion"
+                      id="editDescripcion"
+                      required></textarea>
+
+            <input type="number"
+                   step="0.01"
+                   name="precio_venta"
+                   id="editPrecio"
+                   required>
+
+            <input type="text"
+                   name="categoria"
+                   id="editCategoria"
+                   required>
+
+            <input type="datetime-local"
+                   name="fecha_elaboracion"
+                   id="editFecha"
+                   required>
+
+            <input type="number"
+                   name="dias_vida_util"
+                   id="editVida"
+                   required>
+
+            <input type="text"
+                   name="imagen_url"
+                   id="editImagen">
+
+            <select name="estado_producto"
+                    id="editEstadoProducto">
+
+                <option value="Activo">
+                    Activo
+                </option>
+
+                <option value="Inactivo">
+                    Inactivo
+                </option>
+
+                <option value="Temporada">
+                    Temporada
+                </option>
+
+            </select>
+
+            <button type="submit">
+
+                Guardar Cambios
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- JS -->
+<script src="public/assets/js/sidebar.js"></script>
+<script src="public/assets/js/productos.js"></script>
 
 </body>
 

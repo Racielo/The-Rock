@@ -1,15 +1,48 @@
 /* =========================
+   BUSCADOR INVENTARIO
+========================= */
+
+function buscarInventario(){
+
+    let input = document.getElementById("buscarInventario")
+                        .value
+                        .toLowerCase();
+
+    let tabla = document.getElementById("tablaInventario");
+
+    let filas = tabla.getElementsByTagName("tr");
+
+    for(let i = 1; i < filas.length; i++){
+
+        let textoFila = filas[i]
+                        .textContent
+                        .toLowerCase();
+
+        if(textoFila.includes(input)){
+
+            filas[i].style.display = "";
+
+        }else{
+
+            filas[i].style.display = "none";
+        }
+    }
+}
+
+/* =========================
    MODAL AGREGAR
 ========================= */
 
-function abrirModalInventario() {
+function abrirModalInventario(){
 
-    document.getElementById("modalAgregarInventario").style.display = "flex";
+    document.getElementById("modalInventario")
+            .style.display = "flex";
 }
 
-function cerrarModalInventario() {
+function cerrarModalInventario(){
 
-    document.getElementById("modalAgregarInventario").style.display = "none";
+    document.getElementById("modalInventario")
+            .style.display = "none";
 }
 
 /* =========================
@@ -19,85 +52,44 @@ function cerrarModalInventario() {
 function abrirEditarInventario(
     id,
     nombre,
-    categoria,
+    cantidad,
     unidad,
-    stockActual,
-    stockMinimo,
-    costo,
-    fecha,
+    minimo,
+    ingreso,
+    caducidad,
     estado
-) {
+){
 
-    document.getElementById("modalInventario").style.display = "flex";
+    document.getElementById("modalEditarInventario")
+            .style.display = "flex";
 
-    document.getElementById("editNombre").value = nombre;
+    document.getElementById("editNombre")
+            .value = nombre;
 
-    document.getElementById("editCategoria").value = categoria;
+    document.getElementById("editCantidad")
+            .value = cantidad;
 
-    document.getElementById("editUnidad").value = unidad;
+    document.getElementById("editUnidad")
+            .value = unidad;
 
-    document.getElementById("editStockActual").value = stockActual;
+    document.getElementById("editMinimo")
+            .value = minimo;
 
-    document.getElementById("editStockMinimo").value = stockMinimo;
+    document.getElementById("editIngreso")
+            .value = ingreso;
 
-    document.getElementById("editCosto").value = costo;
+    document.getElementById("editCaducidad")
+            .value = caducidad;
 
-    document.getElementById("editFecha").value = fecha;
+    document.getElementById("editEstado")
+            .value = estado;
 
-    document.getElementById("editEstado").value = estado;
-
-    document.getElementById("formEditarInventario").action =
-        "?menu=editarInventario&id=" + id;
+    document.getElementById("formEditarInventario")
+            .action = "?menu=editarInventario&id=" + id;
 }
 
-function cerrarEditarInventario() {
+function cerrarEditarInventario(){
 
-    document.getElementById("modalInventario").style.display = "none";
-}
-
-/* =========================
-   BUSCADOR
-========================= */
-
-function buscarInventario() {
-
-    let input = document
-        .getElementById("buscarInventario")
-        .value
-        .toLowerCase();
-
-    let filas = document.querySelectorAll("#tablaInventario tbody tr");
-
-    filas.forEach(fila => {
-
-        let texto = fila.textContent.toLowerCase();
-
-        fila.style.display =
-            texto.includes(input)
-            ? ""
-            : "none";
-    });
-}
-
-/* =========================
-   CERRAR MODAL AL DAR CLICK FUERA
-========================= */
-
-window.onclick = function(event) {
-
-    let modalAgregar =
-        document.getElementById("modalAgregarInventario");
-
-    let modalEditar =
-        document.getElementById("modalInventario");
-
-    if (event.target == modalAgregar) {
-
-        modalAgregar.style.display = "none";
-    }
-
-    if (event.target == modalEditar) {
-
-        modalEditar.style.display = "none";
-    }
+    document.getElementById("modalEditarInventario")
+            .style.display = "none";
 }

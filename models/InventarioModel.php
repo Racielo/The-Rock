@@ -5,89 +5,68 @@ class InventarioModel {
     private $db;
 
     public function __construct($conexion) {
-
         $this->db = $conexion;
     }
-
-    /* =========================
-       LISTAR INVENTARIO
-    ========================= */
 
     public function listar() {
 
         $sql = "SELECT * FROM inventario
-                ORDER BY id_inventario DESC";
+                ORDER BY id_insumo DESC";
 
         return $this->db
                     ->query($sql)
                     ->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /* =========================
-       GUARDAR
-    ========================= */
-
     public function guardar(
         $nombre,
-        $categoria,
+        $cantidad,
         $unidad,
-        $stockActual,
-        $stockMinimo,
-        $costo,
-        $fechaCaducidad
+        $stock,
+        $ingreso,
+        $caducidad,
+        $estado
     ) {
 
-        $sql = "INSERT INTO inventario (
-
-                    nombre,
-                    categoria,
-                    unidad_medida,
-                    stock_actual,
-                    stock_minimo,
-                    costo_unitario,
-                    fecha_caducidad
-
-                )
-
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO inventario
+        (
+            nombre,
+            cantidad_actual,
+            unidad_medida,
+            stock_minimo,
+            fecha_ingreso,
+            fecha_caducidad,
+            estado
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
-
-            $nombre,
-            $categoria,
-            $unidad,
-            $stockActual,
-            $stockMinimo,
-            $costo,
-            $fechaCaducidad
-
+            trim($nombre),
+            $cantidad,
+            trim($unidad),
+            $stock,
+            $ingreso,
+            $caducidad,
+            trim($estado)
         ]);
     }
-
-    /* =========================
-       ELIMINAR
-    ========================= */
 
     public function eliminar($id) {
 
         $sql = "DELETE FROM inventario
-                WHERE id_inventario = ?";
+                WHERE id_insumo = ?";
 
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([$id]);
     }
 
-    /* =========================
-       OBTENER POR ID
-    ========================= */
-
     public function obtenerPorId($id) {
 
         $sql = "SELECT * FROM inventario
-                WHERE id_inventario = ?";
+                WHERE id_insumo = ?";
 
         $stmt = $this->db->prepare($sql);
 
@@ -96,51 +75,40 @@ class InventarioModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /* =========================
-       ACTUALIZAR
-    ========================= */
-
     public function actualizar(
-
         $id,
         $nombre,
-        $categoria,
+        $cantidad,
         $unidad,
-        $stockActual,
-        $stockMinimo,
-        $costo,
-        $fechaCaducidad,
+        $stock,
+        $ingreso,
+        $caducidad,
         $estado
-
     ) {
 
         $sql = "UPDATE inventario SET
 
-                    nombre = ?,
-                    categoria = ?,
-                    unidad_medida = ?,
-                    stock_actual = ?,
-                    stock_minimo = ?,
-                    costo_unitario = ?,
-                    fecha_caducidad = ?,
-                    estado = ?
+                nombre = ?,
+                cantidad_actual = ?,
+                unidad_medida = ?,
+                stock_minimo = ?,
+                fecha_ingreso = ?,
+                fecha_caducidad = ?,
+                estado = ?
 
-                WHERE id_inventario = ?";
+                WHERE id_insumo = ?";
 
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
-
-            $nombre,
-            $categoria,
-            $unidad,
-            $stockActual,
-            $stockMinimo,
-            $costo,
-            $fechaCaducidad,
-            $estado,
+            trim($nombre),
+            $cantidad,
+            trim($unidad),
+            $stock,
+            $ingreso,
+            $caducidad,
+            trim($estado),
             $id
-
         ]);
     }
 }

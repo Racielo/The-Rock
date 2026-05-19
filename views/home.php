@@ -24,12 +24,12 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
     <div class="hero">
-        <h1 class="titulo-principal">eslogan</h1>
+        <h1 class="titulo-principal"></h1>
     </div>
     <div class="slider-showcase">
 
         <!-- IZQUIERDA -->
-<div class="showcase-card small" id="card1">
+        <div class="showcase-card small" id="card1">
             <img src="public/assets/img/pastel.jpeg">
 
             <div class="overlay">
@@ -41,7 +41,7 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
 
         <!-- CENTRO -->
-<div class="showcase-card large" id="card2">
+        <div class="showcase-card large" id="card2">
             <img src="public/assets/img/otropastel.jpeg">
 
             <div class="overlay center">
@@ -53,7 +53,7 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
 
         <!-- DERECHA -->
-<div class="showcase-card small" id="card3">
+        <div class="showcase-card small" id="card3">
             <img src="public/assets/img/Mexico.jpeg">
 
             <div class="overlay">
@@ -66,8 +66,9 @@ if (session_status() == PHP_SESSION_NONE) {
 
     </div>
 
+
     </div>
-        <div class="hero">
+    <div class="hero">
         <h1 class="titulo-principal">Productos</h1>
     </div>
     <div class="categorias">
